@@ -6,4 +6,8 @@ public class Book extends Item {
 		super(category,price);
 	}
 
+	public Book(String name, String category, double price) {
+		super(name, category,price);
+	}
+
 }

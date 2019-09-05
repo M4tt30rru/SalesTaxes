@@ -6,4 +6,8 @@ public class ChocolateBar extends Item {
 		super(category, price);
 	}
 
+	public ChocolateBar(String name, String category, double price) {
+		super(name, category, price);	
+	}
+
 }
