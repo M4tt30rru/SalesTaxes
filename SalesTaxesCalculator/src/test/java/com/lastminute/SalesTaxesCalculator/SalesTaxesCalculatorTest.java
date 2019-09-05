@@ -24,20 +24,20 @@ public class SalesTaxesCalculatorTest {
 
 	@Test
 	public void should_return_zero_taxes_for_books() {
-		Book book = new Book("book",12.49);
+		Item book = new Item("book","book",12.49);
 		assertThat(salesTaxesCalculator.getTaxFromItem(book), equalTo(0.0));
 	}
 	
 	
 	@Test
 	public void should_return_10_taxes_for_cd() {
-		CD cd = new CD("cd",14.99);
+		Item cd = new Item("cd","electronics",14.99);
 		assertThat(salesTaxesCalculator.getTaxFromItem(cd), equalTo(10.0));
 	}
 	
 	@Test
 	public void should_return_zero_taxes_for_chocholate_bar() {
-		ChocolateBar chocolate_bar = new ChocolateBar("food",0.85);
+		Item chocolate_bar = new Item("chocolate bar","food",0.85);
 		assertThat(salesTaxesCalculator.getTaxFromItem(chocolate_bar), equalTo(0.0));
 	}
 
