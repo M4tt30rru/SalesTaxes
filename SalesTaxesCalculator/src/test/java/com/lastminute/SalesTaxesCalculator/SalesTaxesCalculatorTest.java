@@ -75,7 +75,6 @@ public class SalesTaxesCalculatorTest {
 		Item cd = new Other("cd",14.99);
 		salesTaxesCalculator.add(chocolate_bar);
 		salesTaxesCalculator.add(cd);
-		// assertThat(salesTaxesCalculator.getTotalPrice(), equalTo((double) Math.round((14.99 + 14.99*0.1 + 0.85)*1000)/1000));
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(14.99 + 14.99*0.1 + 0.85));
 
 	}
@@ -88,7 +87,6 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(chocolate_bar);
 		salesTaxesCalculator.add(cd);
 		salesTaxesCalculator.add(book);
-		// assertThat(salesTaxesCalculator.getTotalPrice(), equalTo((double) Math.round((14.99 + 14.99*0.1 + 0.85)*1000)/1000));
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(14.99 + 14.99*0.1 + 0.85 + 12.49));
 
 	}
