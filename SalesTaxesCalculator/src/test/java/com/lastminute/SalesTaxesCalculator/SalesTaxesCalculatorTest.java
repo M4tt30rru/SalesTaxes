@@ -88,8 +88,14 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(cd);
 		salesTaxesCalculator.add(book);
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(14.99 + 14.99*0.1 + 0.85 + 12.49));
-
 	}
 	
+	@Test
+	public void should_return_price_including_taxes_for_imported_book() {
+		double price = 12.49;
+		Item book = new Book("book",price, true);
+		salesTaxesCalculator.add(book);
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(price + price * 0.05));
+	}
 
 }
