@@ -2,7 +2,8 @@ package com.lastminute.SalesTaxesCalculator;
 
 public class CD extends Item{
 
-	public CD(double d) {
+	public CD(String category, double price) {
+		super(category, price);
 	}
 	
 
