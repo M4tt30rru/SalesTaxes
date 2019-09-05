@@ -1,9 +1,10 @@
 package com.lastminute.SalesTaxesCalculator;
 
-public class Item {
+public abstract class Item {
 	
-	String category;
-	private double price;
+	protected String category;
+	protected double price;
+	protected String name;
 
 	public Item(String category, double price) {
 		this.category = category;
@@ -18,9 +19,10 @@ public class Item {
 	public String getCategory() {
 		return this.category;
 	}
+	
+	public abstract double getPrice();
+	
+	public abstract double getTax();
 
-	public double getPrice() {
-		return this.price;
-	}
 
 }
