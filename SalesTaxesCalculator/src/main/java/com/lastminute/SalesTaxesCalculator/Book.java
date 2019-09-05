@@ -1,6 +1,6 @@
 package com.lastminute.SalesTaxesCalculator;
 
-public class Book {
+public class Book extends Item {
 
 	public Book(double d) {
 	}
