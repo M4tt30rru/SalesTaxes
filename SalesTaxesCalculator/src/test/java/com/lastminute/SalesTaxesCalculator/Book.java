@@ -18,7 +18,11 @@ public class Book extends Item {
 	}
 
 	public double getPrice() {
-		return this.price + (imported ? this.price * 0.05 : 0);
+		return this.price + addCustomsIfImported();
+	}
+
+	private double addCustomsIfImported() {
+		return imported ? this.price * 0.05 : 0;
 	}
 
 	public double getTax() {
