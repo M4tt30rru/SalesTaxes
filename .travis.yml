@@ -9,5 +9,6 @@ branches:
 
 script:
   # - mvn clean install
+  - cd SalesTaxesCalculator
   - mvn test
   # - mvn cobertura:cobertura
