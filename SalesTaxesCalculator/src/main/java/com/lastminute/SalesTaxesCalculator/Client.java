@@ -2,8 +2,10 @@ package com.lastminute.SalesTaxesCalculator;
 
 public class Client {
 
-	public void input(String string) {
-		
+	private String input;
+
+	public void input(String input) {
+		this.input = input;
 	}
 
 	public String output() {
