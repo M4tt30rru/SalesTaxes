@@ -2,6 +2,7 @@ package com.lastminute.SalesTaxesCalculator;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -66,7 +67,8 @@ public class SalesTaxesCalculatorTest {
 		Item cd = new Other("cd",14.99);
 		salesTaxesCalculator.add(chocolate_bar);
 		salesTaxesCalculator.add(cd);
-		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(14.99 + 14.99 * 0.1 + 0.85));
+		double formula = 14.99 + 14.99 * 0.1 + 0.85;
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
 	}
 	
 	@Test
@@ -75,7 +77,8 @@ public class SalesTaxesCalculatorTest {
 		Item cd = new Other("cd",14.99);
 		salesTaxesCalculator.add(chocolate_bar);
 		salesTaxesCalculator.add(cd);
-		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(14.99 + 14.99*0.1 + 0.85));
+		double formula = 14.99 + 14.99*0.1 + 0.85;
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
 
 	}
 	
@@ -87,7 +90,8 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(chocolate_bar);
 		salesTaxesCalculator.add(cd);
 		salesTaxesCalculator.add(book);
-		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(14.99 + 14.99*0.1 + 0.85 + 12.49));
+		double formula = 14.99 + 14.99 * 0.1 + 0.85 + 12.49;
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
 	}
 	
 	@Test
@@ -97,5 +101,40 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(book);
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(price + price * 0.05));
 	}
+	
+//	Input 2:
+//		1 imported box of chocolates at 10.00 --> 10.00 + 10.00*5% = 10.50
+//		1 imported bottle of perfume at 47.50 --> 47.50 + 47.50*0.1 + 47.50*0.05 = 52.25 + 2.37 = 54.62
+	
+	@Test
+	public void should_return_price_including_taxes_for_imported_chocolate() {
+		double price = 10.00;
+		Item chocolate = new Food("box of chocolate",price, true);
+		salesTaxesCalculator.add(chocolate);
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(price + price * 0.05));
+	}
+	
+	@Test
+	public void should_return_price_including_taxes_for_imported_perfume() {
+		double price = 47.50;
+		Item perfume = new Other("bottle of perfume",price, true);
+		salesTaxesCalculator.add(perfume);
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(price + price * 0.1 + price * 0.05));
+	}
+	
+	@Test
+	public void should_return_price_including_taxes_for_2nd_input() {
+		double price_chocolate = 10.00;
+		double price_perfume = 47.50;
+		Item chocolate = new Food("box of chocolate",price_chocolate, true);
+		Item perfume = new Other("bottle of perfume",price_perfume, true);
+		salesTaxesCalculator.add(perfume);
+		salesTaxesCalculator.add(chocolate);
+		double formula = (price_chocolate + price_chocolate * 0.05) 
+				+ (price_perfume + price_perfume * 0.1 + price_perfume * 0.05);
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
+	}
+
+	
 
 }
