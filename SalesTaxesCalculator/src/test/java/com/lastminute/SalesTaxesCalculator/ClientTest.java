@@ -1,17 +1,17 @@
 package com.lastminute.SalesTaxesCalculator;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import static org.mockito.Mockito.*;
+import org.mockito.MockitoAnnotations;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ClientTest {
 	
 //	INPUT:
@@ -29,14 +29,15 @@ public class ClientTest {
 //		Total: 29.83
 	
 	@Mock
-	Parser parser; 
+	private IParser parser; 
 	
 	@InjectMocks
-	Client client;
+	private Client client;
 	
 	@Before
 	public void setup() {
 		client = new Client(parser);
+		MockitoAnnotations.initMocks(this);
 	}
 
 	@Test
