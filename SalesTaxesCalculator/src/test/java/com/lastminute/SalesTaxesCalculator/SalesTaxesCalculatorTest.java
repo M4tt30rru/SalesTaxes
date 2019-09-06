@@ -134,6 +134,36 @@ public class SalesTaxesCalculatorTest {
 				+ (price_perfume + price_perfume * 0.1 + price_perfume * 0.05);
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
 	}
+	
+	
+//	Input 3:
+//		1 imported bottle of perfume at 27.99
+//		1 bottle of perfume at 18.99
+//		1 packet of headache pills at 9.75
+//		1 box of imported chocolates at 11.25
+	
+	@Test
+	public void should_return_price_including_taxes_for_3rd_input() throws Exception {
+		
+		double price_imported_perfume = 27.99;
+		Item imported_perfume = new Other("bottle of perfume",price_imported_perfume,true);
+		double price_perfume = 18.99;
+		Item perfume = new Other("bottle of perfume",price_perfume,false);
+		double price_pills = 9.75;
+		Item headache_pills = new Medical("packet of headache pills", price_pills, false);
+		double price_chocolate = 11.25;
+		Item imported_chocolate = new Food("box of imported chocolates", price_chocolate, true);
+		
+		salesTaxesCalculator.add(imported_perfume);
+		salesTaxesCalculator.add(imported_chocolate);
+		salesTaxesCalculator.add(perfume);
+		salesTaxesCalculator.add(headache_pills);
+
+		double formula = (price_imported_perfume + price_imported_perfume * 0.1 + price_imported_perfume * 0.05) + 
+				(price_perfume + price_perfume * 0.1) + price_pills + (price_chocolate + price_chocolate * 0.05);
+		
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
+	}
 
 	
 
