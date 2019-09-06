@@ -3,8 +3,10 @@ package com.lastminute.SalesTaxesCalculator;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import static org.mockito.Mockito.*;
@@ -28,11 +30,17 @@ public class ClientTest {
 	
 	@Mock
 	Parser parser; 
+	
+	@InjectMocks
+	Client client;
+	
+	@Before
+	public void setup() {
+		client = new Client(parser);
+	}
 
 	@Test
 	public void should_return_output_for_1_book() {
-		// IParser parser = new Parser();
-		Client client = new Client(parser);
 		when(parser.parse("1 book at 12.49")).thenReturn("1 book: 12.49\nSales Taxes: 0\nTotal: 29.83");
 		client.input("1 book at 12.49");
 		assertThat(client.output(),equalTo("1 book: 12.49\nSales Taxes: 0\nTotal: 29.83"));
@@ -41,8 +49,6 @@ public class ClientTest {
 	
 	@Test
 	public void should_return_output_for_1_cd() {
-		// IParser parser = new Parser();
-		Client client = new Client(parser);
 		when(parser.parse("1 music CD at 14.99")).thenReturn("1 music CD: 16.49\nSales Taxes: 1.50\nTotal: 17.99");
 		client.input("1 music CD at 14.99");
 		assertThat(client.output(),equalTo("1 music CD: 16.49\nSales Taxes: 1.50\nTotal: 17.99"));
