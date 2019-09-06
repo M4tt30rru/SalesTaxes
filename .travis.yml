@@ -1,12 +1,11 @@
 language: java
 
-jdk:
-  - oraclejdk8
+# jdk:
+#   - oraclejdk8
 
 branches:
   only:
     - master
-    - more-stable
 
 script:
   # - mvn clean install
