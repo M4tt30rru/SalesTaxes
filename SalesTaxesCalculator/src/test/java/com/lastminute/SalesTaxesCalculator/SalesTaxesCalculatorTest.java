@@ -92,7 +92,12 @@ public class SalesTaxesCalculatorTest {
 	@Test
 	public void testSum() throws Exception {
 		assertThat(12.49 + 16.49 + 0.85, equalTo(29.83));
-		assertThat((double) Math.round((14.99 + 0.1 * 14.99)*100.0)/100.0, equalTo(16.49));
+		double input = 14.99 + 0.1 * 14.99;
+		assertThat(round(input), equalTo(16.49));
+	}
+
+	private double round(double input) {
+		return (double) Math.round(input*100.0)/100.0;
 	}
 	
 	@Test
@@ -104,7 +109,7 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(chocolate_bar);
 		salesTaxesCalculator.add(cd);
 		double total = 29.83;
-		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(total));
+		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(total));
 
 	}
 	
