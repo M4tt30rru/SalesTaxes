@@ -31,12 +31,14 @@ public abstract class Item {
 	}
 
 	public double getFullPrice() {
-		return this.price + addTaxes() + addCustomsIfImported();
+		return this.price + getAllTaxes();
 	}
 
 	public double getPrice() {
 		return this.price;
 	}
 
-
+	public double getAllTaxes() {
+		return addTaxes() + addCustomsIfImported();
+	}
 }
