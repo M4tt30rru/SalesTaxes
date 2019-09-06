@@ -27,4 +27,8 @@ public class SalesTaxesCalculator {
 		return price;
 	}
 
+	public double getTotalTaxes() {
+		return 0;
+	}
+
 }
