@@ -14,9 +14,9 @@ public class Other extends Item {
 		this.imported = imported;
 	}
 
-	public double getFullPrice() {
-		return this.price + addTaxes() + addCustomsIfImported();
-	}
+//	public double getFullPrice() {
+//		return this.price + getAllTaxes();
+//	}
 
 	protected double addTaxes() {
 		return TAX == 0.0 ? TAX : this.price * TAX;
