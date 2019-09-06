@@ -1,6 +1,8 @@
 package com.lastminute.SalesTaxesCalculator;
 
 public class Medical extends Item {
+	
+	private static double TAX = 0;
 
 	public Medical(String category, double price) {
 		super(category, price);
@@ -13,12 +15,12 @@ public class Medical extends Item {
 
 	@Override
 	public double getTax() {
-		return 0;
+		return TAX * 100;
 	}
 
 	@Override
 	protected double addTaxes() {
-		return 0;
+		return TAX == 0.0 ? TAX : this.price * TAX;
 	}
 
 }
