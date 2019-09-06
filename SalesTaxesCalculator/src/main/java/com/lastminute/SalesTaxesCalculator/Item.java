@@ -30,8 +30,12 @@ public abstract class Item {
 		return imported ? this.price * 0.05 : 0;
 	}
 
-	public double getPrice() {
+	public double getFullPrice() {
 		return this.price + addTaxes() + addCustomsIfImported();
+	}
+
+	public double getPrice() {
+		return this.price;
 	}
 
 
