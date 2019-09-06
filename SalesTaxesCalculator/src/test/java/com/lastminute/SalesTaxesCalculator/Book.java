@@ -2,10 +2,8 @@ package com.lastminute.SalesTaxesCalculator;
 
 public class Book extends Item {
 	
-	private static final double TAX = 0;
-	private boolean imported;
-
-
+	private static double TAX = 0;
+	
 	public Book(String name, double price) {
 		super("book", price);
 		this.name = name;
@@ -13,20 +11,21 @@ public class Book extends Item {
 	}
 
 	public Book(String name, double price, boolean imported) {
-		this(name, price);
+		this("book", price);
 		this.imported = imported;
 	}
 
 	public double getPrice() {
-		return this.price + addCustomsIfImported();
-	}
-
-	private double addCustomsIfImported() {
-		return imported ? this.price * 0.05 : 0;
+		return this.price  + addTaxes() + addCustomsIfImported();
 	}
 
 	public double getTax() {
 		return TAX * 100;
+	}
+
+	@Override
+	protected double addTaxes() {
+		return TAX == 0.0 ? TAX : this.price * TAX;
 	}
 
 }
