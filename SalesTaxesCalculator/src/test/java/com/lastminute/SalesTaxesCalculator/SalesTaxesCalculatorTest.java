@@ -180,6 +180,12 @@ public class SalesTaxesCalculatorTest {
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(price + price * 0.1 + price * 0.05));
 	}
 	
+//	Output 2:
+//	1 imported box of chocolates: 10.50
+//	1 imported bottle of perfume: 54.65
+//	Sales Taxes: 7.65
+//	Total: 65.15
+	
 	@Test
 	public void should_return_price_including_taxes_for_2nd_input() {
 		double price_chocolate = 10.00;
@@ -212,6 +218,14 @@ public class SalesTaxesCalculatorTest {
 //		1 packet of headache pills at 9.75
 //		1 box of imported chocolates at 11.25
 	
+//	Output 3:
+//		1 imported bottle of perfume: 32.19
+//		1 bottle of perfume: 20.89
+//		1 packet of headache pills: 9.75
+//		1 imported box of chocolates: 11.85
+//		Sales Taxes: 6.70
+//		Total: 74.68
+	
 	@Test
 	public void should_return_price_including_taxes_for_3rd_input() throws Exception {
 		
@@ -233,6 +247,29 @@ public class SalesTaxesCalculatorTest {
 				(price_perfume + price_perfume * 0.1) + price_pills + (price_chocolate + price_chocolate * 0.05);
 		
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
+	}
+	
+	@Test
+	public void should_return_price_taxes_for_3rd_input() throws Exception {
+		
+		double price_imported_perfume = 27.99;
+		Item imported_perfume = new Other("bottle of perfume",price_imported_perfume,true);
+		double price_perfume = 18.99;
+		Item perfume = new Other("bottle of perfume",price_perfume,false);
+		double price_pills = 9.75;
+		Item headache_pills = new Medical("packet of headache pills", price_pills, false);
+		double price_chocolate = 11.25;
+		Item imported_chocolate = new Food("box of imported chocolates", price_chocolate, true);
+		
+		salesTaxesCalculator.add(imported_perfume);
+		salesTaxesCalculator.add(imported_chocolate);
+		salesTaxesCalculator.add(perfume);
+		salesTaxesCalculator.add(headache_pills);
+
+		double taxes = (price_imported_perfume * 0.1 + price_imported_perfume * 0.05) + 
+				(price_perfume * 0.1) + (price_chocolate * 0.05);
+		
+		assertThat(salesTaxesCalculator.getTotalTaxes(), equalTo(taxes));
 	}
 	
 	@Test
