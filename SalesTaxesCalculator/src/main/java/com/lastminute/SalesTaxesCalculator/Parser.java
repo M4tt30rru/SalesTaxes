@@ -1,6 +1,12 @@
 package com.lastminute.SalesTaxesCalculator;
 
 public class Parser implements IParser {
+	
+	private ISalesCalculator salesCalculator;
+
+	public Parser(ISalesCalculator salesCalculator) {
+		this.salesCalculator = salesCalculator;
+	}
 
 	public String parse(String input) {
 		
@@ -12,7 +18,7 @@ public class Parser implements IParser {
 		// output 1 book: 12.49\\nSales Taxes: 0\\nSales Taxes: 0
 		String item = join(temp);
 		String itemrow = quantity + " " + item + ": " + price;
-		String footer = "Sales Taxes: 0\n" + "Total: 12.49";
+		String footer = "Sales Taxes: 0\n" + "Total: " + price;
 		
 		return itemrow + "\n" + footer;
 	}
