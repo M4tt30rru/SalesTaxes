@@ -27,5 +27,12 @@ public class ClientTest {
 		client.input("1 book at 12.49");
 		assertThat(client.output(),equalTo("1 book: 12.49\nSales Taxes: 0\nTotal: 29.83"));
 	}
+	
+	@Test
+	public void should_return_output_for_1_cd() {
+		Client client = new Client();
+		client.input("1 music CD at 14.99");
+		assertThat(client.output(),equalTo("1 music CD: 16.49\nSales Taxes: 1.50\nTotal: 17.99"));
+	}
 
 }
