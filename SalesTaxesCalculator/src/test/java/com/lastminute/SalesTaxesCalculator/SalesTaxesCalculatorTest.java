@@ -193,6 +193,18 @@ public class SalesTaxesCalculatorTest {
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
 	}
 	
+	@Test
+	public void should_return_taxes_for_2nd_input() {
+		double price_chocolate = 10.00;
+		double price_perfume = 47.50;
+		Item chocolate = new Food("box of chocolate",price_chocolate, true);
+		Item perfume = new Other("bottle of perfume",price_perfume, true);
+		salesTaxesCalculator.add(perfume);
+		salesTaxesCalculator.add(chocolate);
+		double taxes = (price_chocolate * 0.05) 
+				+ (price_perfume * 0.1 + price_perfume * 0.05);
+		assertThat(salesTaxesCalculator.getTotalTaxes(), equalTo(taxes));
+	}
 	
 //	Input 3:
 //		1 imported bottle of perfume at 27.99

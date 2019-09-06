@@ -32,7 +32,7 @@ public class SalesTaxesCalculator {
 		for(Item i: list) {
 			double tax = i.getTax()/100;
 			double price = i.getPrice();
-			taxes = taxes + (price * tax);
+			taxes = taxes + i.getAllTaxes(); // (price * tax);
 		}
 		return taxes;
 	}
