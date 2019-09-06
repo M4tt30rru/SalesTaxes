@@ -82,6 +82,32 @@ public class SalesTaxesCalculatorTest {
 
 	}
 	
+//	Output 1:
+//	1 book : 12.49
+//	1 music CD: 16.49
+//	1 chocolate bar: 0.85
+//	Sales Taxes: 1.50
+//	Total: 29.83
+	
+	@Test
+	public void testSum() throws Exception {
+		assertThat(12.49 + 16.49 + 0.85, equalTo(29.83));
+		assertThat((double) Math.round((14.99 + 0.1 * 14.99)*100.0)/100.0, equalTo(16.49));
+	}
+	
+	@Test
+	public void should_return_price_including_taxes_for_input_1() {
+		Item book = new Book("book",12.49);
+		Item chocolate_bar = new Food("chocolate bar",0.85);
+		Item cd = new Other("cd",14.99);
+		salesTaxesCalculator.add(book);
+		salesTaxesCalculator.add(chocolate_bar);
+		salesTaxesCalculator.add(cd);
+		double total = 29.83;
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(total));
+
+	}
+	
 	@Test
 	public void should_return_price_including_taxes_for_three_different_items_strategy_2() {
 		Item book = new Book("book",12.49);
@@ -178,6 +204,6 @@ public class SalesTaxesCalculatorTest {
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
 	}
 
-	
+
 
 }
