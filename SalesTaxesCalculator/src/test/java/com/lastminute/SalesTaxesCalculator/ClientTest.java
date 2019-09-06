@@ -67,12 +67,12 @@ public class ClientTest {
 	
 	@Test
 	public void should_return_output_for_3_items() {
-		when(parser.parse("1 book at 12.49\n1 music CD at 14.99")).thenReturn("1 book: 12.49\n1 music CD: 16.49\nSales Taxes: 1.50\nTotal: 28.98");
+		when(parser.parse("1 book at 12.49\n1 music CD at 14.99\n1 chocolate bar at 0.85")).thenReturn("1 book: 12.49\n1 music CD: 16.49\n1 chocolate bar at 0.85\nSales Taxes: 1.50\nTotal: 29.83");
 		client.input("1 book at 12.49");
 		client.input("1 music CD at 14.99");
-		assertThat(client.output(),equalTo("1 book: 12.49\n1 music CD: 16.49\nSales Taxes: 1.50\nTotal: 28.98"));
-		verify(parser, times(1)).parse("1 book at 12.49\n1 music CD at 14.99");
+		client.input("1 chocolate bar at 0.85");
+		assertThat(client.output(),equalTo("1 book: 12.49\n1 music CD: 16.49\n1 chocolate bar at 0.85\nSales Taxes: 1.50\nTotal: 29.83"));
+		verify(parser, times(1)).parse("1 book at 12.49\n1 music CD at 14.99\n1 chocolate bar at 0.85");
 	}
-
 
 }
