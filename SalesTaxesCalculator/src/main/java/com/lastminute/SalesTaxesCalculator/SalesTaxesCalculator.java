@@ -12,7 +12,7 @@ public class SalesTaxesCalculator {
 	}
 
 	public Double getPrice(Item item) {
-		return item.getPrice();
+		return item.getFullPrice();
 	}
 
 	public void add(Item item) {
@@ -22,13 +22,19 @@ public class SalesTaxesCalculator {
 	public Double getTotalPrice() {
 		Double price = 0.0;
 		for(Item i: list) {
-			price += i.getPrice();
+			price += i.getFullPrice();
 		}
 		return price;
 	}
 
 	public double getTotalTaxes() {
-		return 0;
+		Double taxes = 0.0;
+		for(Item i: list) {
+			double tax = i.getTax()/100;
+			double price = i.getPrice();
+			taxes = taxes + (price * tax);
+		}
+		return taxes;
 	}
 
 }

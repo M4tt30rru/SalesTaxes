@@ -125,6 +125,22 @@ public class SalesTaxesCalculatorTest {
 	}
 	
 	@Test
+	public void should_return_total_taxes() {
+		Item cd = new Other("cd",14.99);
+		salesTaxesCalculator.add(cd);
+		double total_taxes = round(14.99 * 0.1);
+		assertThat(round(salesTaxesCalculator.getTotalTaxes()), equalTo(total_taxes));
+	}
+	
+	@Test
+	public void should_return_total_taxes_2() {
+		Item item = new Other("item",11.00);
+		salesTaxesCalculator.add(item);
+		double total_taxes = round(11.00 * 0.1);
+		assertThat(round(salesTaxesCalculator.getTotalTaxes()), equalTo(total_taxes));
+	}
+	
+	@Test
 	public void should_return_price_including_taxes_for_three_different_items_strategy_2() {
 		Item book = new Book("book",12.49);
 		Item chocolate_bar = new Food("chocolate bar",0.85);
@@ -216,7 +232,6 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(headache_pills);
 
 		double formula =  price_pills + price_pills * 0.05;
-		
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
 	}
 
