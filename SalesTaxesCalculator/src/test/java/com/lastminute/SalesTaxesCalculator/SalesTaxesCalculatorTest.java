@@ -164,6 +164,19 @@ public class SalesTaxesCalculatorTest {
 		
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
 	}
+	
+	@Test
+	public void should_return_price_including_taxes_for_imported_medical() throws Exception {
+		
+		double price_pills = 9.75;
+		Item headache_pills = new Medical("packet of headache pills", price_pills, true);
+		
+		salesTaxesCalculator.add(headache_pills);
+
+		double formula =  price_pills + price_pills * 0.05;
+		
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
+	}
 
 	
 
