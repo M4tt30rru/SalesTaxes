@@ -41,4 +41,12 @@ public abstract class Item {
 	public double getAllTaxes() {
 		return addTaxes() + addCustomsIfImported();
 	}
+
+	public void setPrice(double price) {
+		this.price = price;		
+	}
+
+	protected double round(double input) {
+		return (double) Math.round(input*100.0)/100.0;
+	}
 }

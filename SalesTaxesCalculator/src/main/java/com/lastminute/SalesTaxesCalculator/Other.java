@@ -33,9 +33,5 @@ public class Other extends Item {
 	public double getTax() {
 		return TAX * 100;
 	}
-	
-	private double round(double input) {
-		return (double) Math.round(input*100.0)/100.0;
-	}
 
 }
