@@ -33,5 +33,5 @@ public class Other extends Item {
 	public double getTax() {
 		return TAX * 100;
 	}
-
+	
 }

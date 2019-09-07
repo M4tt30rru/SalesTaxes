@@ -27,11 +27,11 @@ public abstract class Item {
 	protected abstract double addTaxes();
 
 	protected double addCustomsIfImported() {
-		return imported ? this.price * 0.05 : 0;
+		return imported ? round(this.price * 0.05) : 0;
 	}
 
 	public double getFullPrice() {
-		return this.price + getAllTaxes();
+		return round(this.price + getAllTaxes());
 	}
 
 	public double getPrice() {
@@ -39,7 +39,7 @@ public abstract class Item {
 	}
 
 	public double getAllTaxes() {
-		return addTaxes() + addCustomsIfImported();
+		return round(addTaxes() + addCustomsIfImported());
 	}
 
 	public void setPrice(double price) {
