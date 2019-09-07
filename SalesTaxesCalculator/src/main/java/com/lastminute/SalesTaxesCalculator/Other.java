@@ -1,5 +1,13 @@
 package com.lastminute.SalesTaxesCalculator;
 
+/**
+ * Class that contains items which are not either books, medical products or food
+ * @TODO add quantity
+ * @TODO invert the use of constructors: let 2 parameters constructor call the three one with default imported = false
+ * @author matteo
+ *
+ */
+
 public class Other extends Item {
 	
 	private static double TAX = 0.1;
@@ -19,11 +27,15 @@ public class Other extends Item {
 //	}
 
 	protected double addTaxes() {
-		return TAX == 0.0 ? TAX : this.price * TAX;
+		return TAX == 0.0 ? TAX : round(this.price * TAX);
 	}
 
 	public double getTax() {
 		return TAX * 100;
+	}
+	
+	private double round(double input) {
+		return (double) Math.round(input*100.0)/100.0;
 	}
 
 }
