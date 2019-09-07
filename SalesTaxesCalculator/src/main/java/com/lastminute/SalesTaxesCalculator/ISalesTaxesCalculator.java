@@ -6,4 +6,8 @@ public interface ISalesTaxesCalculator {
 	
 	public void add(Item item);
 
+	public Double getTotalPrice();
+	
+	public double getTotalTaxes();
+	
 }
