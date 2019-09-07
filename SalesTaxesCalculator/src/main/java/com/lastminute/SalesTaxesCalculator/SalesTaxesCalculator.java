@@ -3,7 +3,7 @@ package com.lastminute.SalesTaxesCalculator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SalesTaxesCalculator {
+public class SalesTaxesCalculator implements ISalesTaxesCalculator {
 
 	private List<Item> list = new ArrayList<Item>();
 
@@ -35,6 +35,11 @@ public class SalesTaxesCalculator {
 			taxes = taxes + i.getAllTaxes(); // (price * tax);
 		}
 		return taxes;
+	}
+
+	@Override
+	public Double getTaxFromItem(String string) {
+		return null;
 	}
 
 }

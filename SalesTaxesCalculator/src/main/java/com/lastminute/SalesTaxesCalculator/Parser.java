@@ -2,10 +2,16 @@ package com.lastminute.SalesTaxesCalculator;
 
 public class Parser implements IParser {
 	
-	private ISalesCalculator salesCalculator;
+	private ISalesTaxesCalculator salesCalculator;
+	private AbstractItemFactory itemFactory;
 
-	public Parser(ISalesCalculator salesCalculator) {
+	public Parser(ISalesTaxesCalculator salesCalculator) {
 		this.salesCalculator = salesCalculator;
+	}
+
+	public Parser(ISalesTaxesCalculator salesCalculator, AbstractItemFactory itemFactory) {
+		this(salesCalculator);
+		this.itemFactory = itemFactory;
 	}
 
 	public String parse(String input) {
@@ -16,11 +22,35 @@ public class Parser implements IParser {
 
 		// input 1 book at 12.49
 		// output 1 book: 12.49\\nSales Taxes: 0\\nSales Taxes: 0
-		String item = join(temp);
-		String itemrow = quantity + " " + item + ": " + price;
-		String footer = "Sales Taxes: 0\n" + "Total: " + price;
+		String itemName = join(temp);
+		
+		Item item = itemFactory.createItem(itemName, price);
+		// item.setPrice(price);
+		
+		String itemrow = quantity + " " + itemName + ": " + item.getFullPrice();
+		
+		String footer = "Sales Taxes: " + printout2decimal(item.addTaxes()) +"\n" + "Total: " + item.getFullPrice();
 		
 		return itemrow + "\n" + footer;
+	}
+
+	private String printout2decimal(double addTaxes) {
+		String string = "" + addTaxes;
+		String[] stringVector = string.split("\\.");
+		String s = stringVector[1];
+		if(s.length() < 2)
+			s = s + "0";
+		return stringVector[0] + "." + s;
+	}
+
+	private Item lookUp(String itemName) {
+			switch(itemName) {
+				case "music CD":
+					return new Other(itemName,0.0,false);
+				default:
+					break;
+			}
+		return null;
 	}
 
 	private String join(String[] temp) {
@@ -32,6 +62,11 @@ public class Parser implements IParser {
 		}
 		s = s.substring(0, s.length()-1); // remove the last space
 		return s;
+	}
+
+	@Override
+	public String getItemName(String string) {
+		return null;
 	}
 
 }

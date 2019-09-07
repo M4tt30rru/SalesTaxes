@@ -51,7 +51,8 @@ public class SalesTaxesCalculatorTest {
 	@Test
 	public void should_return_price_including_taxes_for_cd() {
 		Item cd = new Other("cd",14.99);
-		assertThat(salesTaxesCalculator.getPrice(cd), equalTo(14.99 + 14.99 * 0.1));
+		double formula = 14.99 + 14.99 * 0.1;
+		assertThat(salesTaxesCalculator.getPrice(cd), equalTo(round(formula)));
 	}
 	
 	@Test
@@ -68,7 +69,7 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(chocolate_bar);
 		salesTaxesCalculator.add(cd);
 		double formula = 14.99 + 14.99 * 0.1 + 0.85;
-		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(round(formula)));
 	}
 	
 	@Test
@@ -78,7 +79,7 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(chocolate_bar);
 		salesTaxesCalculator.add(cd);
 		double formula = 14.99 + 14.99*0.1 + 0.85;
-		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(round(formula)));
 
 	}
 	
@@ -149,7 +150,7 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(cd);
 		salesTaxesCalculator.add(book);
 		double formula = 14.99 + 14.99 * 0.1 + 0.85 + 12.49;
-		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(round(formula)));
 	}
 	
 	@Test
@@ -157,7 +158,7 @@ public class SalesTaxesCalculatorTest {
 		double price = 12.49;
 		Item book = new Book("book",price, true);
 		salesTaxesCalculator.add(book);
-		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(price + price * 0.05));
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(round(price + price * 0.05)));
 	}
 	
 //	Input 2:
@@ -177,7 +178,7 @@ public class SalesTaxesCalculatorTest {
 		double price = 47.50;
 		Item perfume = new Other("bottle of perfume",price, true);
 		salesTaxesCalculator.add(perfume);
-		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(price + price * 0.1 + price * 0.05));
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(round(price + price * 0.1 + price * 0.05)));
 	}
 	
 //	Output 2:
@@ -196,7 +197,7 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(chocolate);
 		double formula = (price_chocolate + price_chocolate * 0.05) 
 				+ (price_perfume + price_perfume * 0.1 + price_perfume * 0.05);
-		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(round(formula)));
 	}
 	
 	@Test
@@ -209,7 +210,7 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(chocolate);
 		double taxes = (price_chocolate * 0.05) 
 				+ (price_perfume * 0.1 + price_perfume * 0.05);
-		assertThat(salesTaxesCalculator.getTotalTaxes(), equalTo(taxes));
+		assertThat(salesTaxesCalculator.getTotalTaxes(), equalTo(round(taxes)));
 	}
 	
 //	Input 3:
@@ -269,7 +270,7 @@ public class SalesTaxesCalculatorTest {
 		double taxes = (price_imported_perfume * 0.1 + price_imported_perfume * 0.05) + 
 				(price_perfume * 0.1) + (price_chocolate * 0.05);
 		
-		assertThat(salesTaxesCalculator.getTotalTaxes(), equalTo(taxes));
+		assertThat(salesTaxesCalculator.getTotalTaxes(), equalTo(round(taxes)));
 	}
 	
 	@Test
@@ -281,9 +282,6 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.add(headache_pills);
 
 		double formula =  price_pills + price_pills * 0.05;
-		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(round(formula)));
 	}
-
-
-
 }

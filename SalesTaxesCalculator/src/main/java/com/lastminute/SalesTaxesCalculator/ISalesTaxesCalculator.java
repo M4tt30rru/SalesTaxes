@@ -1,5 +1,7 @@
 package com.lastminute.SalesTaxesCalculator;
 
-public interface ISalesCalculator {
+public interface ISalesTaxesCalculator {
+
+	Double getTaxFromItem(String string);
 
 }

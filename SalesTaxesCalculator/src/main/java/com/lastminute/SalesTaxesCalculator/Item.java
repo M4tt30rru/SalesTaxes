@@ -47,6 +47,6 @@ public abstract class Item {
 	}
 
 	protected double round(double input) {
-		return (double) Math.round(input*100.0)/100.0;
+		return (double) Math.round(input*100.00)/100.00;
 	}
 }

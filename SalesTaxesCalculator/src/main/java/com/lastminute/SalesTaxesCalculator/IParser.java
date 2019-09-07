@@ -4,4 +4,6 @@ public interface IParser {
 
 	String parse(String string);
 
+	String getItemName(String string);
+
 }

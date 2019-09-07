@@ -1,7 +1,7 @@
 package com.lastminute.SalesTaxesCalculator;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,16 +37,31 @@ public class ParserTest {
 	@Test
 	public void should_return_complete_output_for_1_cd() {
 		// when(salesTaxesCalculator.getTaxFromItem("1 music CD at 14.99")).thenReturn(1.50);
-		when(itemFactory.createItem(1,"music CD",14.99)).thenReturn(new Other("music CD",14.99,false));
+		when(itemFactory.createItem("music CD",14.99)).thenReturn(new Other("music CD",14.99,false));
 		String parsed = parser.parse("1 music CD at 14.99");
 		assertThat(parsed,equalTo("1 music CD: 16.49\nSales Taxes: 1.50\nTotal: 16.49"));
-		verify(itemFactory, times(1)).createItem(1, "music CD",14.99);
+		verify(itemFactory, times(1)).createItem("music CD",14.99);
 	}
 	
 	@Test
 	public void should_return_item_name() {
 		String parsed = parser.getItemName("1 music CD at 14.99");
 		assertThat(parsed,equalTo("music CD"));
+	}
+	
+	@Test
+	public void should_return_2_decimal_double_string() throws Exception {
+		assertThat(printout2decimal(11.50),equalTo("11.50"));
+		assertThat(printout2decimal(123232.50),equalTo("123232.50"));
+	}
+	
+	private String printout2decimal(double addTaxes) {
+		String string = "" + addTaxes;
+		String[] stringVector = string.split("\\.");
+		String s = stringVector[stringVector.length-1];
+		if(s.length() < 2)
+			s = s + "0";
+		return stringVector[0] + "." + s;
 	}
 
 }
