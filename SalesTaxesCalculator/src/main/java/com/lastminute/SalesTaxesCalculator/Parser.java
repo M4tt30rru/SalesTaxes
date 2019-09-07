@@ -19,7 +19,10 @@ public class Parser implements IParser {
 		if(input.contains("\n")) {
 			return parseMultiLine(input);
 		}
-		
+		return parseSingleLine(input) + "\n" + addFooter(salesTaxesCalculator);
+	}
+
+	private String parseSingleLine(String input) {
 		String[] temp = input.split(" ");
 		int quantity = Integer.parseInt(temp[0]);
 		double price = Double.parseDouble(temp[temp.length - 1]);
@@ -34,21 +37,22 @@ public class Parser implements IParser {
 		salesTaxesCalculator.add(item);
 		
 		String itemrow = quantity + " " + itemName + ": " + item.getFullPrice();
-		
-		return itemrow + "\n" + addFooter(item);
+		return itemrow;
 	}
 
-	private String addFooter(Item item) {
-		String footer = "Sales Taxes: " + printout2decimal(item.addTaxes()) +"\n" + "Total: " + item.getFullPrice();
+	private String addFooter(ISalesTaxesCalculator salesTaxesCalculator) {
+		String footer = "Sales Taxes: " + printout2decimal(round(salesTaxesCalculator.getTotalTaxes())) +"\n" + "Total: " 
+						+ round(salesTaxesCalculator.getTotalPrice()).toString();
 		return footer;
 	}
 
 	private String parseMultiLine(String input) {
 		String[] sv = input.split("\n");
+		String temp = "";
 		for(String s: sv) {
-			parse(s);
+			temp += parseSingleLine(s) + "\n";
 		}
-		return null;
+		return temp + addFooter(salesTaxesCalculator);
 	}
 
 	String printout2decimal(double addTaxes) {
@@ -94,6 +98,10 @@ public class Parser implements IParser {
 	@Override
 	public String getItemName(String string) {
 		return null;
+	}
+	
+	protected Double round(Double input) {
+		return (double) Math.round(input*100.00)/100.00;
 	}
 
 }

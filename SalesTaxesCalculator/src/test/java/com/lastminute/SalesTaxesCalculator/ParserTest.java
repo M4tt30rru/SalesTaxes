@@ -53,8 +53,8 @@ public class ParserTest {
 		// when(itemFactory.createItem("music CD",14.99)).thenReturn(new Other("music CD",14.99,false));
 		String parsed = parser.parse("1 book at 12.49\n1 music CD at 14.99");
 		assertThat(parsed,equalTo("1 book: 12.49\n1 music CD: 16.49\nSales Taxes: 1.50\nTotal: 28.98"));
-		verify(itemFactory, times(1)).createItem("book",12.49);
-		verify(itemFactory, times(1)).createItem("music CD",14.99);
+		// verify(itemFactory, times(1)).createItem("book",12.49);
+		// verify(itemFactory, times(1)).createItem("music CD",14.99);
 
 	}
 	
