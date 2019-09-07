@@ -6,7 +6,7 @@ public abstract class Item {
 	protected double price;
 	protected String name;
 	public boolean imported;
-
+	
 	public Item(String category, double price) {
 		this.category = category;
 		this.price = price;
