@@ -36,6 +36,22 @@ public class ParserTest {
 		String parsed = parser.parse("1 book at 12.49");
 		assertThat(parsed,equalTo("1 book: 12.49\nSales Taxes: 0\nTotal: 12.49"));
 	}
+		
+	@Test
+	public void should_return_complete_output_for_1_imported_book() {
+		// when(itemFactory.createItem("book",12.49)).thenReturn(new Book("book",12.49,false));
+		String parsed = parser.parse("1 imported book at 12.49");
+		assertThat(parsed,equalTo("1 imported book: 13.11\nSales Taxes: 0.62\nTotal: 13.11"));
+	}
+	
+	@Test
+	public void should_return_item_name_without_imported() {
+		String temp = "1 imported book at 12.49";
+		String[] v = temp.split(" ");
+		System.out.println(v[0]);
+		String parsed = parser.getItemNameRemoveImported(v);
+		assertThat(parsed,equalTo("book"));
+	}
 	
 	@Test
 	public void should_return_complete_output_for_1_cd() {
@@ -95,6 +111,34 @@ public class ParserTest {
 		String parsed = parser.parse("1 imported box of chocolates at 10.00\n1 imported bottle of perfume at 47.50");
 		assertThat(parsed,equalTo("1 imported box of chocolates: 10.50\n1 imported bottle of perfume: 54.63\n"
 				+ "Sales Taxes: 7.63\nTotal: 65.13"));
+	}
+	
+	//	Input 3:
+	//	1 imported bottle of perfume at 27.99
+	//	1 bottle of perfume at 18.99
+	//	1 packet of headache pills at 9.75
+	//	1 box of imported chocolates at 11.25
+	
+	//Output 3:
+	//	1 imported bottle of perfume: 32.19
+	//	1 bottle of perfume: 20.89
+	//	1 packet of headache pills: 9.75
+	//	1 imported box of chocolates: 11.85 <-- WATCH OUT! we are changing this in box of imported chocolates 
+	//	Sales Taxes: 6.70
+	//	Total: 74.68
+	
+	@Test
+	public void should_return_complete_output_for_input_3() {
+		String parsed = parser.parse("1 imported bottle of perfume at 27.99\n" + 
+									 "1 bottle of perfume at 18.99\n" + 
+									 "1 packet of headache pills at 9.75\n" + 
+									 "1 box of imported chocolates at 11.25");
+		assertThat(parsed,equalTo("1 imported bottle of perfume: 32.19\n" + 
+								  "1 bottle of perfume: 20.89\n" + 
+								  "1 packet of headache pills: 9.75\n" + 
+								  "1 box of imported chocolates: 11.81\n" + 
+								  "Sales Taxes: 6.66\n" + 
+								  "Total: 74.64"));
 	}
 	
 	@Ignore
