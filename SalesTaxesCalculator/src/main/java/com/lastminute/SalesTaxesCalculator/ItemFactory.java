@@ -16,6 +16,12 @@ public class ItemFactory extends AbstractItemFactory {
 				return new Book(itemName,price,false);
 			case "chocolate bar": 
 				return new Food(itemName,price,false);
+				// imported box of chocolates
+			case "imported box of chocolates": 
+				return new Food(itemName,price,true);
+				// imported bottle of perfume
+			case "imported bottle of perfume": 
+				return new Other(itemName,price,true);
 			default:
 				break;
 		}

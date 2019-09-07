@@ -36,7 +36,7 @@ public class Parser implements IParser {
 		
 		salesTaxesCalculator.add(item);
 		
-		String itemrow = quantity + " " + itemName + ": " + item.getFullPrice();
+		String itemrow = quantity + " " + itemName + ": " + printout2decimal(item.getFullPrice());
 		return itemrow;
 	}
 
@@ -101,7 +101,9 @@ public class Parser implements IParser {
 	}
 	
 	protected Double round(Double input) {
-		return (double) Math.round(input*100.00)/100.00;
+		// return (double) Math.round(input*100.00)/100.00;
+		return (double) Math.round(input*200.00)/200.00;
+
 	}
 
 }
