@@ -1,5 +1,6 @@
 package com.lastminute.SalesTaxesCalculator;
 
+import com.lastminute.SalesTaxesCalculator.decorator.IItem;
 import com.lastminute.SalesTaxesCalculator.item.Item;
 import com.lastminute.SalesTaxesCalculator.item.Other;
 
@@ -40,12 +41,14 @@ public class Parser implements IParser {
 		// output 1 book: 12.49\\nSales Taxes: 0\\nSales Taxes: 0
 		String itemName = getItemNameWithImported(temp);
 		
-		Item item = itemFactory.createItem(itemName, price);
+		// Item item = itemFactory.createItem2(itemName, price);
+		IItem item = itemFactory.createItem(itemName, price);
+
 		// item.setPrice(price);
 		
 		salesTaxesCalculator.add(item);
 		
-		String itemrow = quantity + " " + itemName + ": " + printout2decimal(item.getFullPrice());
+		String itemrow = quantity + " " + itemName + ": " + printout2decimal(round(item.getFullPrice()));
 		return itemrow;
 	}
 
@@ -122,8 +125,7 @@ public class Parser implements IParser {
 	
 	protected Double round(Double input) {
 		// return (double) Math.round(input*100.00)/100.00;
-		return (double) Math.round(input*200.00)/200.00;
-
+		return (double) Math.round(input*100.00)/100.00;
 	}
 
 }

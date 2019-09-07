@@ -1,5 +1,6 @@
 package com.lastminute.SalesTaxesCalculator;
 
+import com.lastminute.SalesTaxesCalculator.decorator.IItem;
 import com.lastminute.SalesTaxesCalculator.item.Item;
 
 public interface ISalesTaxesCalculator {
@@ -11,5 +12,7 @@ public interface ISalesTaxesCalculator {
 	public Double getTotalPrice();
 	
 	public double getTotalTaxes();
+
+	void add(IItem item);
 	
 }
