@@ -14,6 +14,8 @@ public class ItemFactory extends AbstractItemFactory {
 				return new Other(itemName,price,false);
 			case "book": 
 				return new Book(itemName,price,false);
+			case "chocolate bar": 
+				return new Food(itemName,price,false);
 			default:
 				break;
 		}
