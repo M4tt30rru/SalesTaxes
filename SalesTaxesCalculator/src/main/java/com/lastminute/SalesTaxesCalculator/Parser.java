@@ -23,13 +23,19 @@ public class Parser implements IParser {
 	}
 
 	private String parseSingleLine(String input) {
+		
+		boolean imported = false;
+		if(input.contains("imported")) {
+				imported = true;
+		}
+		
 		String[] temp = input.split(" ");
 		int quantity = Integer.parseInt(temp[0]);
 		double price = Double.parseDouble(temp[temp.length - 1]);
 
 		// input 1 book at 12.49
 		// output 1 book: 12.49\\nSales Taxes: 0\\nSales Taxes: 0
-		String itemName = join(temp);
+		String itemName = getItemNameWithImported(temp);
 		
 		Item item = itemFactory.createItem(itemName, price);
 		// item.setPrice(price);
@@ -83,12 +89,23 @@ public class Parser implements IParser {
 			}
 		return null;
 	}
-
-	private String join(String[] temp) {
+	
+	public String getItemNameWithImported(String[] temp) {
 		// start from the second element
 		String s = "";
 		for(int i = 1; i < temp.length-2; i++) {
-			//if(!s.equals("at"))
+			//if(!temp[i].equals("imported"))
+				s += temp[i] + " ";
+		}
+		s = s.substring(0, s.length()-1); // remove the last space
+		return s;
+	}
+
+	public String getItemNameRemoveImported(String[] temp) {
+		// start from the second element
+		String s = "";
+		for(int i = 1; i < temp.length-2; i++) {
+			if(!temp[i].equals("imported"))
 				s += temp[i] + " ";
 		}
 		s = s.substring(0, s.length()-1); // remove the last space
