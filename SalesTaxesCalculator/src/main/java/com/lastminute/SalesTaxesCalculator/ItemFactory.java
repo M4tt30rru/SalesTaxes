@@ -3,6 +3,12 @@ package com.lastminute.SalesTaxesCalculator;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import com.lastminute.SalesTaxesCalculator.item.Book;
+import com.lastminute.SalesTaxesCalculator.item.Food;
+import com.lastminute.SalesTaxesCalculator.item.Item;
+import com.lastminute.SalesTaxesCalculator.item.Medical;
+import com.lastminute.SalesTaxesCalculator.item.Other;
+
 public class ItemFactory extends AbstractItemFactory {
 	
 	HashMap<String, HashSet<String>> lookUpTable = new HashMap<String,HashSet<String>>();

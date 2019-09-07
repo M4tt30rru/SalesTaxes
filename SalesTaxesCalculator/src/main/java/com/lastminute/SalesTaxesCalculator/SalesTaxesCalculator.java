@@ -3,6 +3,8 @@ package com.lastminute.SalesTaxesCalculator;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lastminute.SalesTaxesCalculator.item.Item;
+
 public class SalesTaxesCalculator implements ISalesTaxesCalculator {
 
 	private List<Item> list = new ArrayList<Item>();

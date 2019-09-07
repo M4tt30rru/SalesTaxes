@@ -1,5 +1,8 @@
 package com.lastminute.SalesTaxesCalculator;
 
+import com.lastminute.SalesTaxesCalculator.item.Item;
+import com.lastminute.SalesTaxesCalculator.item.Other;
+
 public class Parser implements IParser {
 	
 	private ISalesTaxesCalculator salesTaxesCalculator;

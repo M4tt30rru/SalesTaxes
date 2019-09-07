@@ -7,6 +7,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.lastminute.SalesTaxesCalculator.item.Book;
+import com.lastminute.SalesTaxesCalculator.item.Food;
+import com.lastminute.SalesTaxesCalculator.item.Item;
+import com.lastminute.SalesTaxesCalculator.item.Medical;
+import com.lastminute.SalesTaxesCalculator.item.Other;
+
 public class SalesTaxesCalculatorTest {
 	
 //	INPUT:

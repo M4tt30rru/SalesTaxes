@@ -1,4 +1,4 @@
-package com.lastminute.SalesTaxesCalculator;
+package com.lastminute.SalesTaxesCalculator.item;
 
 public abstract class Item {
 	

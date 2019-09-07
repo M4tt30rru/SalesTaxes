@@ -1,4 +1,4 @@
-package com.lastminute.SalesTaxesCalculator;
+package com.lastminute.SalesTaxesCalculator.item;
 
 /**
  * Class that contains items which are not either books, medical products or food
