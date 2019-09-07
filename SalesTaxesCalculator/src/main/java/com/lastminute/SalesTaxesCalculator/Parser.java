@@ -2,11 +2,12 @@ package com.lastminute.SalesTaxesCalculator;
 
 public class Parser implements IParser {
 	
-	private ISalesTaxesCalculator salesCalculator;
+	private ISalesTaxesCalculator salesTaxesCalculator;
 	private AbstractItemFactory itemFactory;
+	
 
 	public Parser(ISalesTaxesCalculator salesCalculator) {
-		this.salesCalculator = salesCalculator;
+		this.salesTaxesCalculator = salesCalculator;
 	}
 
 	public Parser(ISalesTaxesCalculator salesCalculator, AbstractItemFactory itemFactory) {
@@ -30,11 +31,16 @@ public class Parser implements IParser {
 		Item item = itemFactory.createItem(itemName, price);
 		// item.setPrice(price);
 		
+		salesTaxesCalculator.add(item);
+		
 		String itemrow = quantity + " " + itemName + ": " + item.getFullPrice();
 		
+		return itemrow + "\n" + addFooter(item);
+	}
+
+	private String addFooter(Item item) {
 		String footer = "Sales Taxes: " + printout2decimal(item.addTaxes()) +"\n" + "Total: " + item.getFullPrice();
-		
-		return itemrow + "\n" + footer;
+		return footer;
 	}
 
 	private String parseMultiLine(String input) {
