@@ -15,6 +15,9 @@ public class Parser implements IParser {
 	}
 
 	public String parse(String input) {
+		if(input.contains("\n")) {
+			return parseMultiLine(input);
+		}
 		
 		String[] temp = input.split(" ");
 		int quantity = Integer.parseInt(temp[0]);
@@ -34,13 +37,31 @@ public class Parser implements IParser {
 		return itemrow + "\n" + footer;
 	}
 
-	private String printout2decimal(double addTaxes) {
+	private String parseMultiLine(String input) {
+		String[] sv = input.split("\n");
+		for(String s: sv) {
+			parse(s);
+		}
+		return null;
+	}
+
+	String printout2decimal(double addTaxes) {
 		String string = "" + addTaxes;
 		String[] stringVector = string.split("\\.");
 		String s = stringVector[1];
+		if(isZero(string))
+			return "0";
 		if(s.length() < 2)
 			s = s + "0";
 		return stringVector[0] + "." + s;
+	}
+
+	private boolean isZero(String withTaxes) {
+		String[] stringVector = withTaxes.split("\\.");
+		for(String s: stringVector)
+			if(Integer.parseInt(s) > 0)
+				return false;
+		return true;
 	}
 
 	private Item lookUp(String itemName) {
