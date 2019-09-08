@@ -43,11 +43,12 @@ public class ItemFactory extends AbstractItemFactory {
 	}
 
 
-	@Override
-	public Item createItem(int i, String string, double d) {
-		return null;
-	}
+//	@Override
+//	public Item createItem(int i, String string, double d) {
+//		return null;
+//	}
 	
+	@Override
 	public IItem createItem(String itemName, double price) {
 //		if(false) // Math.random() > 3)
 //			return lookup(itemName.toLowerCase());

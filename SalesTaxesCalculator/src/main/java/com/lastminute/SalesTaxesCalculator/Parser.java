@@ -12,6 +12,7 @@ public class Parser implements IParser {
 
 	public Parser(ISalesTaxesCalculator salesCalculator) {
 		this.salesTaxesCalculator = salesCalculator;
+		this.itemFactory = new ItemFactory();
 	}
 
 	public Parser(ISalesTaxesCalculator salesCalculator, AbstractItemFactory itemFactory) {
@@ -39,9 +40,15 @@ public class Parser implements IParser {
 
 		// input 1 book at 12.49
 		// output 1 book: 12.49\\nSales Taxes: 0\\nSales Taxes: 0
-		String itemName = getItemNameWithImported(temp);
+		String itemName;
+		if(input.contains("imported")) {
+			itemName = getItemNameWithImported(temp);
+		} else {
+			itemName = getItemNameRemoveImported(temp);
+		}
 		
 		// Item item = itemFactory.createItem2(itemName, price);
+		// System.out.println("itemName: " + itemName);
 		IItem item = itemFactory.createItem(itemName, price);
 
 		// item.setPrice(price);
@@ -111,9 +118,11 @@ public class Parser implements IParser {
 		// start from the second element
 		String s = "";
 		for(int i = 1; i < temp.length-2; i++) {
-			if(!temp[i].equals("imported"))
+			// System.out.println(temp[i]);
+			if(!temp[i].equals("imported")) 
 				s += temp[i] + " ";
 		}
+		// s = s.substring(0, s.length()-1); // remove the last space
 		s = s.substring(0, s.length()-1); // remove the last space
 		return s;
 	}

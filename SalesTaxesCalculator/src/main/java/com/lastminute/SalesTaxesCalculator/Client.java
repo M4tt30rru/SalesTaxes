@@ -10,105 +10,174 @@ public class Client {
 	private String input;
 	private IParser parser;
 	private List<String> inputList;
+	private static Client client;
 	
 	// C&P
 	
-	private String server; // should be final?
-	private int portNumber; // should be final?
-	private boolean wasSomethingDone;
+//	private String server; // should be final?
+//	private int portNumber; // should be final?
+//	private boolean wasSomethingDone;
 	
 	public Client(IParser parser) {
 		this.parser = parser;
 	}
 
     public static void main(String[] args) {
-      if (args.length < 2 && args.length > 1) {
-         System.out.println("port must be supplied");
-         System.out.println("Usage:ntjava App server port");
-         System.exit(1);
-      } else if (args.length > 2) {
-         System.out.println("too many arguments");
-         System.out.println("Usage:ntjava App server port");
-         System.exit(1);
-      } else {
-    	  run(args);
-          System.exit(0);
-      }
+    	
+    	client = new Client(new Parser(new SalesTaxesCalculator(), new ItemFactory()));
+    	
+    	run(args);
+        System.exit(0);
+    	
+//      if (args.length < 2 && args.length > 1) {
+//         System.out.println("port must be supplied");
+//         System.out.println("Usage:ntjava App server port");
+//         System.exit(1);
+//      } else if (args.length > 2) {
+//         System.out.println("too many arguments");
+//         System.out.println("Usage:ntjava App server port");
+//         System.exit(1);
+//      } else {
+//    	  run(args);
+//          System.exit(0);
+//      }
 
-      String server = args[0];
-      String port = args[1];
-      int portNumber = -1;
+//      String server = args[0];
+//      String port = args[1];
+//      int portNumber = -1;
       
-      try {
-         portNumber = Integer.parseInt(port);
-      } catch (NumberFormatException e) {
-         System.out.println("Usage:ntjava App server port");
-         System.exit(1);
-      }
+//      try {
+//         portNumber = Integer.parseInt(port);
+//      } catch (NumberFormatException e) {
+//         System.out.println("Usage:ntjava App server port");
+//         System.exit(1);
+//      }
 
       // new App(server, portNumber).execute();
-      System.exit(0);
     }	
     
     private static List<String> cart = new ArrayList<String>();
+	private static Scanner scanner;
     
     public static void run(String[] args)
     {
-      // create a scanner so we can read the command-line input
-      Scanner scanner = new Scanner(System.in);
       
-      System.out.println("--------------------------");
-      System.out.println("SalesTaxes".toUpperCase());
-      System.out.println("--------------------------");
+      prettyPrint("SalesTaxes");
       
-      //  prompt for the user's name
-      System.out.print("Please insert the item: ");
-      cart.add(scanner.next());
-      scanner.nextLine();
+      input(); 
       
-      String answer;
-      do {
-          System.out.print("Add another product?[Yn]: ");
-    	  answer = scanner.next();
-    	  if(answer.toLowerCase().equals("y")) {
-    			  System.out.print("Please insert the item: ");
-    			  cart.add(scanner.next());
-    	  }
-      } while(answer.toLowerCase().equals("y")); 
+      process();
       
-      elaborate();
+      System.exit(0);
       
       // get their input as a String
-      String username = scanner.next();
+//      String username = scanner.next();
       
-      boolean enter = false;
+//      boolean enter = false;
 
       // prompt for their age
-      if(enter) {
-	      System.out.print("Enter your age: ");
-	
-	      // get the age as an int
-	      
-	      int age = 0;
-	      try {
-	         age = scanner.nextInt();
-	      } catch (InputMismatchException e) {
-	    	  System.err.println("ERROR! Input Mismatch for field age");
-	    	  System.exit(1);
-	      }
-	
-	      System.out.println(String.format("%s, your age is %d", username, age));
-      }
+//      if(enter) {
+//	      System.out.print("Enter your age: ");
+//	
+//	      // get the age as an int
+//	      
+//	      int age = 0;
+//	      try {
+//	         age = scanner.nextInt();
+//	      } catch (InputMismatchException e) {
+//	    	  System.err.println("ERROR! Input Mismatch for field age");
+//	    	  System.exit(1);
+//	      }
+//	
+//	      System.out.println(String.format("%s, your age is %d", username, age));
+//      }
 
     }
 
-	private static void elaborate() {
-		System.out.println("Thanks, for your input. We are processing...");
-		System.out.println("OUTPUT");
+	private static void input() {
+		
+
+	 scanner = new Scanner(System.in);
+     String answer, start;
+     
+//	 System.out.print("Start adding items?[Yn]: ");
+//     start = scanner.next();
+//     answer = start;
+//	 
+//	 while(start.toLowerCase().equals("y") && answer.toLowerCase().equals("y")) {
+//	     System.out.print("Please insert the item: ");
+//	  	 String newItem = scanner.nextLine();
+//		 cart.add(newItem);
+//		 scanner.nextLine();
+//         System.out.println("Add another product?[Yn]: ");
+//         answer = scanner.next();
+//	 }
+//	 
+//	 System.out.println(cart.size());
+//	 System.out.println(cart.get(0));
+	 
+     System.out.print("Please insert the first item: ");
+	  	do {
+	  		cart.add(scanner.nextLine());
+	  		System.out.print("Press Enter to send the entry");
+	        scanner.nextLine();
+	  		System.out.print("Add another product?[Yn]: ");
+	  		answer = scanner.nextLine();
+	  		if(answer.toLowerCase().equals("y")) {
+	  			System.out.print("Please insert the item: ");
+//	  			cart.add(scanner.nextLine());
+	  		}
+	  	} while(answer.toLowerCase().equals("y"));
+	}
+
+	private static void prettyPrint(String heading) {
+		String str = heading.toUpperCase();
+		
+		printMargin(3);
+		printHeading(str,"-");
+        printMargin(3);
+	}
+
+	private static void printMargin(int space) {
+		for(int i = space; i <= space; i++)
+			System.out.println("\n");
+	}
+
+	private static void printHeading(String str, String sign) {
+		for(int i = 0; i < str.length(); i++)
+			System.out.print(sign);
+		System.out.println("\n" + str);
+		for(int i = 0; i < str.length(); i++)
+			System.out.print(sign);
+	}
+
+	private static void process() {
+		String output = "";
+		for(String s: cart) {
+			output += s + "\n";
+		}
+		output = output.substring(0, output.length()-1); 
+		// System.out.println(output);
+		// client.parser.parse(string);
+		printOutput(client.parser.parse(output));
+	}
+	
+	private static void printOutput() {
+		System.out.println("\n\nThanks, for your input. We are processing...");
+		prettyPrint("OUTPUT");
 		for(String s: cart) {
 			System.out.println(s);
 		}
-  	  	System.exit(0);
+  	  	//System.exit(0);
+	}
+
+	private static void printOutput(String output) {
+		System.out.println("\n\nThanks, for your input. We are processing...");
+		prettyPrint("OUTPUT");
+		// for(String s: cart) {
+			System.out.println(output);
+		// }
+  	  	//System.exit(0);
 	}
 
 	public void input(String input) {
