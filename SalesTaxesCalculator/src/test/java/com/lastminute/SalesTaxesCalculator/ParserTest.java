@@ -8,6 +8,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 
+import com.lastminute.SalesTaxesCalculator.factory.AbstractItemFactory;
+import com.lastminute.SalesTaxesCalculator.factory.ItemFactory;
+
 public class ParserTest {
 	
 	// @Mock

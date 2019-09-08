@@ -1,6 +1,8 @@
 package com.lastminute.SalesTaxesCalculator;
 
 import com.lastminute.SalesTaxesCalculator.decorator.IItem;
+import com.lastminute.SalesTaxesCalculator.factory.AbstractItemFactory;
+import com.lastminute.SalesTaxesCalculator.factory.ItemFactory;
 import com.lastminute.SalesTaxesCalculator.item.Item;
 import com.lastminute.SalesTaxesCalculator.item.Other;
 
