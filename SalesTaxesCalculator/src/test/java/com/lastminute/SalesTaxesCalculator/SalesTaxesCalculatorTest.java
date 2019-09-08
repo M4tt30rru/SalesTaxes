@@ -2,7 +2,6 @@ package com.lastminute.SalesTaxesCalculator;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -12,10 +11,8 @@ import com.lastminute.SalesTaxesCalculator.decorator.ConcreteItem;
 import com.lastminute.SalesTaxesCalculator.decorator.IItem;
 import com.lastminute.SalesTaxesCalculator.decorator.ImportedItemDecorator;
 import com.lastminute.SalesTaxesCalculator.decorator.TaxIncludedItemDecorator;
-import com.lastminute.SalesTaxesCalculator.item.Book;
 import com.lastminute.SalesTaxesCalculator.item.Food;
 import com.lastminute.SalesTaxesCalculator.item.Item;
-import com.lastminute.SalesTaxesCalculator.item.Medical;
 import com.lastminute.SalesTaxesCalculator.item.Other;
 
 public class SalesTaxesCalculatorTest {
@@ -102,14 +99,12 @@ public class SalesTaxesCalculatorTest {
 	public void should_return_price_including_taxes_for_chocholate_bar() {
 		double price = 0.85;
 		IItem chocolate_bar = new ConcreteItem("chocolate bar",price);
-		// Item chocolate_bar = new Food("chocolate bar",price);
 		assertThat(salesTaxesCalculator.getPrice(chocolate_bar), equalTo(price));
 	}
 	
 	@Test
 	public void should_return_price_including_taxes_for_more_items() {
-		// Item chocolate_bar = new Food("chocolate bar",0.85);
-		// Item cd = new Other("cd",14.99);
+
 		IItem cd = new ConcreteItem("cd",14.99);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		IItem chocolate_bar = new ConcreteItem("chocolate bar",0.85);
@@ -122,8 +117,7 @@ public class SalesTaxesCalculatorTest {
 	
 	@Test
 	public void should_return_price_including_taxes_for_two_different_items_strategy() {
-//		Item chocolate_bar = new Food("chocolate bar",0.85);
-//		Item cd = new Other("cd",14.99);
+
 		IItem cd = new ConcreteItem("cd",14.99);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		IItem chocolate_bar = new ConcreteItem("chocolate bar",0.85);
@@ -168,9 +162,7 @@ public class SalesTaxesCalculatorTest {
 	
 	@Test
 	public void should_return_price_including_taxes_for_input_1() {
-//		Item book = new Book("book",12.49);
-//		Item chocolate_bar = new Food("chocolate bar",0.85);
-//		Item cd = new Other("cd",14.99);
+
 		IItem cd = new ConcreteItem("cd",14.99);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		IItem chocolate_bar = new ConcreteItem("chocolate bar",0.85);
@@ -188,9 +180,7 @@ public class SalesTaxesCalculatorTest {
 	
 	@Test
 	public void should_return_taxes_for_input_1() {
-//		Item book = new Book("book",12.49);
-//		Item chocolate_bar = new Food("chocolate bar",0.85);
-//		Item cd = new Other("cd",14.99);
+
 		IItem cd = new ConcreteItem("cd",14.99);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		IItem chocolate_bar = new ConcreteItem("chocolate bar",0.85);
@@ -205,7 +195,7 @@ public class SalesTaxesCalculatorTest {
 	
 	@Test
 	public void should_return_total_taxes() {
-		// Item cd = new Other("cd",14.99);
+
 		IItem cd = new ConcreteItem("cd",14.99);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		cart.add(tiid);
@@ -216,7 +206,7 @@ public class SalesTaxesCalculatorTest {
 	
 	@Test
 	public void should_return_total_taxes_2() {
-		//Item item = new Other("item",11.00);
+
 		IItem item = new ConcreteItem("item",11.00);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(item);
 		cart.add(tiid);
@@ -227,9 +217,7 @@ public class SalesTaxesCalculatorTest {
 	
 	@Test
 	public void should_return_price_including_taxes_for_three_different_items_strategy_2() {
-//		Item book = new Book("book",12.49);
-//		Item chocolate_bar = new Food("chocolate bar",0.85);
-//		Item cd = new Other("cd",14.99);
+
 		IItem cd = new ConcreteItem("cd",14.99);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		IItem chocolate_bar = new ConcreteItem("chocolate bar",0.85);
@@ -244,7 +232,7 @@ public class SalesTaxesCalculatorTest {
 	
 	@Test
 	public void should_return_price_including_taxes_for_imported_book() {
-		// Item book = new Book("book",12.49, true);
+
 		IItem book = new ConcreteItem("book",12.49);
 		ImportedItemDecorator iid = new ImportedItemDecorator(book);
 		cart.add(iid);
@@ -258,7 +246,7 @@ public class SalesTaxesCalculatorTest {
 	
 	@Test
 	public void should_return_price_including_taxes_for_imported_chocolate() {
-		// Item chocolate = new Food("box of chocolate",10.00, true);
+
 		IItem chocolate = new ConcreteItem("box of chocolate",10.00);
 		ImportedItemDecorator iid = new ImportedItemDecorator(chocolate);
 		cart.add(iid);
@@ -268,7 +256,7 @@ public class SalesTaxesCalculatorTest {
 	
 	@Test
 	public void should_return_price_including_taxes_for_imported_perfume() {
-		// Item perfume = new Other("bottle of perfume",47.50, true);
+
 		IItem perfume = new ConcreteItem("bottle of perfume",47.50);
 		cart.add(new ImportedItemDecorator(new TaxIncludedItemDecorator(perfume)));
 		salesTaxesCalculator.setCart(cart);
@@ -283,8 +271,7 @@ public class SalesTaxesCalculatorTest {
 	
 	@Test
 	public void should_return_price_including_taxes_for_2nd_input() {
-		// Item chocolate = new Food("box of chocolate",10.00, true);
-		// Item perfume = new Other("bottle of perfume",47.50, true);
+
 		IItem chocolate = new ConcreteItem("box of chocolate",10.00);
 		ImportedItemDecorator iid = new ImportedItemDecorator(chocolate);
 
@@ -302,8 +289,6 @@ public class SalesTaxesCalculatorTest {
 	
 	@Test
 	public void should_return_taxes_for_2nd_input() {
-//		Item chocolate = new Food("box of chocolate",10.00, true);
-//		Item perfume = new Other("bottle of perfume",47.50, true);
 		
 		IItem chocolate = new ConcreteItem("box of chocolate",10.00);
 		ImportedItemDecorator iid = new ImportedItemDecorator(chocolate);
@@ -337,11 +322,6 @@ public class SalesTaxesCalculatorTest {
 	@Test
 	public void should_return_price_including_taxes_for_3rd_input() throws Exception {
 		
-		// Item imported_perfume = new Other("bottle of perfume",27.99,true);
-		// Item perfume = new Other("bottle of perfume",18.99,false);
-		// Item headache_pills = new Medical("packet of headache pills", 9.75, false);
-		// Item imported_chocolate = new Food("box of imported chocolates", 11.25, true);
-		
 		IItem imported_perfume = new ConcreteItem("bottle of perfume",27.99);
 		ImportedItemDecorator imported_perfume_decorator = new ImportedItemDecorator(new TaxIncludedItemDecorator(imported_perfume));
 		
@@ -371,18 +351,9 @@ public class SalesTaxesCalculatorTest {
 	public void should_return_price_taxes_for_3rd_input() throws Exception {
 		
 		double price_imported_perfume = 27.99;
-//		Item imported_perfume = new Other("bottle of perfume",price_imported_perfume,true);
 		double price_perfume = 18.99;
-//		Item perfume = new Other("bottle of perfume",price_perfume,false);
 		double price_pills = 9.75;
-//		Item headache_pills = new Medical("packet of headache pills", price_pills, false);
 		double price_chocolate = 11.25;
-//		Item imported_chocolate = new Food("box of imported chocolates", price_chocolate, true);
-//		
-//		salesTaxesCalculator.add(imported_perfume);
-//		salesTaxesCalculator.add(imported_chocolate);
-//		salesTaxesCalculator.add(perfume);
-//		salesTaxesCalculator.add(headache_pills);
 		
 		IItem imported_perfume = new ConcreteItem("bottle of perfume",27.99);
 		ImportedItemDecorator imported_perfume_decorator = new ImportedItemDecorator(new TaxIncludedItemDecorator(imported_perfume));
@@ -412,7 +383,6 @@ public class SalesTaxesCalculatorTest {
 	@Test
 	public void should_return_price_including_taxes_for_imported_medical() throws Exception {
 		
-		// Item headache_pills = new Medical("packet of headache pills", 9.75, true);
 		IItem headache_pills = new ConcreteItem("packet of headache pills", 9.75);
 		ImportedItemDecorator headache_pills_decorator = new ImportedItemDecorator(headache_pills);
 		
