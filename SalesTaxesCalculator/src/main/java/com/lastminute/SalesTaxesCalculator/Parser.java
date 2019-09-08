@@ -20,14 +20,14 @@ public class Parser implements IParser {
 		this.itemFactory = itemFactory;
 	}
 
-	public String parse(String input) {
+	public String parse(String input) throws ItemNotMatchingException {
 		if(input.contains("\n")) {
 			return parseMultiLine(input);
 		}
 		return parseSingleLine(input) + "\n" + addFooter(salesTaxesCalculator);
 	}
 
-	private String parseSingleLine(String input) {
+	private String parseSingleLine(String input) throws ItemNotMatchingException {
 		
 		boolean imported = false;
 		if(input.contains("imported")) {
@@ -46,6 +46,9 @@ public class Parser implements IParser {
 		}
 		
 		IItem item = itemFactory.createItem(itemName, price);
+		
+		if(item == null) throw new ItemNotMatchingException();
+		
 		salesTaxesCalculator.add(item);
 		String itemrow = quantity + " " + itemName + ": " + printout2decimal(round(item.getFullPrice()));
 		
@@ -58,7 +61,7 @@ public class Parser implements IParser {
 		return footer;
 	}
 
-	private String parseMultiLine(String input) {
+	private String parseMultiLine(String input) throws ItemNotMatchingException {
 		String[] sv = input.split("\n");
 		String temp = "";
 		for(String s: sv) {

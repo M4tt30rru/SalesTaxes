@@ -18,7 +18,7 @@ public class Client {
 		this.parser = parser;
 	}
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ItemNotMatchingException {
     	
     	client = new Client(new Parser(new SalesTaxesCalculator(), new ItemFactory()));
       	run(args);
@@ -28,7 +28,7 @@ public class Client {
     private static List<String> inputCache = new ArrayList<String>();
 	private static Scanner scanner;
     
-    public static void run(String[] args) {
+    public static void run(String[] args) throws ItemNotMatchingException {
       
       prettyPrint("SalesTaxes");
       input(); 
@@ -86,7 +86,7 @@ public class Client {
 			System.out.print(sign);
 	}
 
-	private static void process() {
+	private static void process() throws ItemNotMatchingException {
 		String output = "";
 		for(String s: inputCache) {
 			output += s + "\n";
@@ -107,7 +107,7 @@ public class Client {
 		inputList.add(input);
 	}
 
-	public String output() {
+	public String output() throws ItemNotMatchingException {
 		String temp = String.join("\n", this.inputList);
 		return parser.parse(temp);
 	}
@@ -116,7 +116,7 @@ public class Client {
 		this.input = input;		
 	}
 
-	public String runInput() {
+	public String runInput() throws ItemNotMatchingException {
 		String parsed = this.parser.parse(this.input);
 		System.out.println(parsed);
 		return parsed;

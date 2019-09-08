@@ -31,14 +31,14 @@ public class ParserTest {
 	}
 
 	@Test
-	public void should_return_complete_output_for_1_book() {
+	public void should_return_complete_output_for_1_book() throws ItemNotMatchingException {
 		// when(itemFactory.createItem("book",12.49)).thenReturn(new Book("book",12.49,false));
 		String parsed = parser.parse("1 book at 12.49");
 		assertThat(parsed,equalTo("1 book: 12.49\nSales Taxes: 0\nTotal: 12.49"));
 	}
 		
 	@Test
-	public void should_return_complete_output_for_1_imported_book() {
+	public void should_return_complete_output_for_1_imported_book() throws ItemNotMatchingException {
 		// when(itemFactory.createItem("book",12.49)).thenReturn(new Book("book",12.49,false));
 		String parsed = parser.parse("1 imported book at 12.49");
 		assertThat(parsed,equalTo("1 imported book: 13.11\nSales Taxes: 0.62\nTotal: 13.11"));
@@ -54,7 +54,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void should_return_complete_output_for_1_cd() {
+	public void should_return_complete_output_for_1_cd() throws ItemNotMatchingException {
 		// when(salesTaxesCalculator.getTaxFromItem("1 music CD at 14.99")).thenReturn(1.50);
 		// when(itemFactory.createItem("music CD",14.99)).thenReturn(new Other("music CD",14.99,false));
 		String parsed = parser.parse("1 music CD at 14.99");
@@ -63,7 +63,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void should_return_complete_output_for_cd_and_book() {
+	public void should_return_complete_output_for_cd_and_book() throws ItemNotMatchingException {
 		// when(salesTaxesCalculator.getTaxFromItem("1 music CD at 14.99")).thenReturn(1.50);
 		// when(itemFactory.createItem("book",12.49)).thenReturn(new Book("book",12.49,false));
 		// when(itemFactory.createItem("music CD",14.99)).thenReturn(new Other("music CD",14.99,false));
@@ -89,7 +89,7 @@ public class ParserTest {
 //		Total: 29.83
 	
 	@Test
-	public void should_return_complete_output_for_input_1() {
+	public void should_return_complete_output_for_input_1() throws ItemNotMatchingException {
 		String parsed = parser.parse("1 book at 12.49\n1 music CD at 14.99\n1 chocolate bar at 0.85");
 		assertThat(parsed,equalTo("1 book: 12.49\n1 music CD: 16.49\n1 chocolate bar: 0.85\nSales Taxes: 1.50\nTotal: 29.83"));
 	}
@@ -107,7 +107,7 @@ public class ParserTest {
 	// @TODO watch out that Java rounds up to 0.01 when 0.005 (R for example rounds down to 0.00)
 	
 	@Test
-	public void should_return_complete_output_for_input_2() {
+	public void should_return_complete_output_for_input_2() throws ItemNotMatchingException {
 		String parsed = parser.parse("1 imported box of chocolates at 10.00\n"
 								   + "1 imported bottle of perfume at 47.50");
 		assertThat(parsed,equalTo("1 imported box of chocolates: 10.50\n"
@@ -130,11 +130,13 @@ public class ParserTest {
 	//	Total: 74.68
 	
 	@Test
-	public void should_return_complete_output_for_input_3() {
-		String parsed = parser.parse("1 imported bottle of perfume at 27.99\n" + 
-									 "1 bottle of perfume at 18.99\n" + 
-									 "1 packet of headache pills at 9.75\n" + 
-									 "1 box of imported chocolates at 11.25");
+	public void should_return_complete_output_for_input_3() throws ItemNotMatchingException {
+		String parsed;
+		parsed = parser.parse("1 imported bottle of perfume at 27.99\n" + 
+										 "1 bottle of perfume at 18.99\n" + 
+										 "1 packet of headache pills at 9.75\n" + 
+										 "1 box of imported chocolates at 11.25");
+
 		assertThat(parsed,equalTo("1 imported bottle of perfume: 32.19\n" + 
 								  "1 bottle of perfume: 20.89\n" + 
 								  "1 packet of headache pills: 9.75\n" + 

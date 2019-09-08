@@ -21,7 +21,7 @@ public class ClientSystemTest {
 	
 	
 	@Test
-	public void should_return_complete_output_for_input_1() {
+	public void should_return_complete_output_for_input_1() throws ItemNotMatchingException {
 		client.setInput("1 book at 12.49\n1 music CD at 14.99\n1 chocolate bar at 0.85");
 		String output = client.runInput();
 		assertThat(output,equalTo("1 book: 12.49\n1 music CD: 16.49\n1 chocolate bar: 0.85\nSales Taxes: 1.50\nTotal: 29.83"));
@@ -29,7 +29,7 @@ public class ClientSystemTest {
 	
 	
 	@Test
-	public void should_return_complete_output_for_input_2() {
+	public void should_return_complete_output_for_input_2() throws ItemNotMatchingException {
 		client.setInput("1 imported box of chocolates at 10.00\n"
 								   + "1 imported bottle of perfume at 47.50");
 		String output = client.runInput();
@@ -40,7 +40,7 @@ public class ClientSystemTest {
 	}
 	
 	@Test
-	public void should_return_complete_output_for_input_3() {
+	public void should_return_complete_output_for_input_3() throws ItemNotMatchingException {
 		
 		client.setInput("1 imported bottle of perfume at 27.99\n" + 
 									 "1 bottle of perfume at 18.99\n" + 
@@ -57,4 +57,22 @@ public class ClientSystemTest {
 								  "Total: 74.64"));
 	}
 
+	@Test(expected = ItemNotMatchingException.class)
+	public void should_return_exception_for_wrong_input() throws ItemNotMatchingException {
+		
+		client.setInput("1 imported bAttle of perfume at 27.99\n" + 
+									 "1 bottle of perfume at 18.99\n" + 
+									 "1 packet of headache pills at 9.75\n" + 
+									 "1 box of imported chocolates at 11.25");
+				
+		String output = client.runInput();
+		
+		assertThat(output,equalTo("1 imported bottle of perfume: 32.19\n" + 
+								  "1 bottle of perfume: 20.89\n" + 
+								  "1 packet of headache pills: 9.75\n" + 
+								  "1 box of imported chocolates: 11.81\n" + 
+								  "Sales Taxes: 6.66\n" + 
+								  "Total: 74.64"));
+	}
+	
 }
