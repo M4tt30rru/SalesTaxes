@@ -23,5 +23,10 @@ public class Cart implements ICart {
 	public List<IItem> getItemsList() {
 		return this.iiList;
 	}
+	
+	@Override
+	public String toString() {
+		return null;
+	}
 
 }

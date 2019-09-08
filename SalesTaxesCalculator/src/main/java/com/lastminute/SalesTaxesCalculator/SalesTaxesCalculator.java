@@ -67,5 +67,8 @@ public class SalesTaxesCalculator implements ISalesTaxesCalculator {
 	public void add(IItem item) {
 		cart.add(item);
 	}
+	public void setCart(ICart cart) {
+		this.cart = cart;
+	}
 
 }

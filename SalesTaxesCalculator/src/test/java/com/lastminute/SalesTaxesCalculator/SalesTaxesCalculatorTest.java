@@ -33,7 +33,7 @@ public class SalesTaxesCalculatorTest {
 	@Before
 	public void setup() {
 		cart = new Cart();
-		salesTaxesCalculator = new SalesTaxesCalculator(cart);
+		salesTaxesCalculator = new SalesTaxesCalculator();
 	}
 	
 	@Ignore
@@ -68,7 +68,8 @@ public class SalesTaxesCalculatorTest {
 		IItem cd = new ConcreteItem("cd",14.99);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		double formula = 14.99 + 14.99 * 0.1;
-		salesTaxesCalculator.add(tiid);
+		cart.add(tiid);
+		salesTaxesCalculator.setCart(cart);
 		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(formula)));
 	}
 	
@@ -87,8 +88,9 @@ public class SalesTaxesCalculatorTest {
 		IItem cd = new ConcreteItem("cd",14.99);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		IItem chocolate_bar = new ConcreteItem("chocolate bar",0.85);
-		salesTaxesCalculator.add(chocolate_bar);
-		salesTaxesCalculator.add(tiid);
+		cart.add(chocolate_bar);
+		cart.add(tiid);
+		salesTaxesCalculator.setCart(cart);
 		double formula = 14.99 + 14.99 * 0.1 + 0.85;
 		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(formula)));
 	}
@@ -100,8 +102,9 @@ public class SalesTaxesCalculatorTest {
 		IItem cd = new ConcreteItem("cd",14.99);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		IItem chocolate_bar = new ConcreteItem("chocolate bar",0.85);
-		salesTaxesCalculator.add(chocolate_bar);
-		salesTaxesCalculator.add(tiid);
+		cart.add(chocolate_bar);
+		cart.add(tiid);
+		salesTaxesCalculator.setCart(cart);
 		double formula = 14.99 + 14.99 * 0.1 + 0.85;
 		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(formula)));
 
@@ -134,9 +137,10 @@ public class SalesTaxesCalculatorTest {
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		IItem chocolate_bar = new ConcreteItem("chocolate bar",0.85);
 		IItem book = new ConcreteItem("book",12.49);
-		salesTaxesCalculator.add(book);
-		salesTaxesCalculator.add(chocolate_bar);
-		salesTaxesCalculator.add(tiid);
+		cart.add(book);
+		cart.add(chocolate_bar);
+		cart.add(tiid);
+		salesTaxesCalculator.setCart(cart);
 		double total = 29.83;
 		assertThat(round(tiid.getFullPrice()), equalTo(round(14.99 + 0.1 * 14.99)));
 		assertThat(round(book.getFullPrice()), equalTo(round(12.49)));
@@ -153,9 +157,10 @@ public class SalesTaxesCalculatorTest {
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		IItem chocolate_bar = new ConcreteItem("chocolate bar",0.85);
 		IItem book = new ConcreteItem("book",12.49);
-		salesTaxesCalculator.add(book);
-		salesTaxesCalculator.add(chocolate_bar);
-		salesTaxesCalculator.add(tiid);
+		cart.add(book);
+		cart.add(chocolate_bar);
+		cart.add(tiid);
+		salesTaxesCalculator.setCart(cart);
 		double total_taxes = round(14.99 * 0.1);
 		assertThat(round(salesTaxesCalculator.getTotalTaxes()), equalTo(total_taxes));
 	}
@@ -165,7 +170,8 @@ public class SalesTaxesCalculatorTest {
 		// Item cd = new Other("cd",14.99);
 		IItem cd = new ConcreteItem("cd",14.99);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
-		salesTaxesCalculator.add(tiid);
+		cart.add(tiid);
+		salesTaxesCalculator.setCart(cart);
 		double total_taxes = round(14.99 * 0.1);
 		assertThat(round(salesTaxesCalculator.getTotalTaxes()), equalTo(total_taxes));
 	}
@@ -175,7 +181,8 @@ public class SalesTaxesCalculatorTest {
 		//Item item = new Other("item",11.00);
 		IItem item = new ConcreteItem("item",11.00);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(item);
-		salesTaxesCalculator.add(tiid);
+		cart.add(tiid);
+		salesTaxesCalculator.setCart(cart);
 		double total_taxes = round(11.00 * 0.1);
 		assertThat(round(salesTaxesCalculator.getTotalTaxes()), equalTo(total_taxes));
 	}
@@ -189,9 +196,10 @@ public class SalesTaxesCalculatorTest {
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
 		IItem chocolate_bar = new ConcreteItem("chocolate bar",0.85);
 		IItem book = new ConcreteItem("book",12.49);
-		salesTaxesCalculator.add(chocolate_bar);
-		salesTaxesCalculator.add(tiid);
-		salesTaxesCalculator.add(book);
+		cart.add(chocolate_bar);
+		cart.add(tiid);
+		cart.add(book);
+		salesTaxesCalculator.setCart(cart);
 		double formula = 14.99 + 14.99 * 0.1 + 0.85 + 12.49;
 		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(formula)));
 	}
@@ -201,7 +209,8 @@ public class SalesTaxesCalculatorTest {
 		// Item book = new Book("book",12.49, true);
 		IItem book = new ConcreteItem("book",12.49);
 		ImportedItemDecorator iid = new ImportedItemDecorator(book);
-		salesTaxesCalculator.add(iid);
+		cart.add(iid);
+		salesTaxesCalculator.setCart(cart);
 		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(12.49 + 12.49 * 0.05)));
 	}
 	
@@ -214,7 +223,8 @@ public class SalesTaxesCalculatorTest {
 		// Item chocolate = new Food("box of chocolate",10.00, true);
 		IItem chocolate = new ConcreteItem("box of chocolate",10.00);
 		ImportedItemDecorator iid = new ImportedItemDecorator(chocolate);
-		salesTaxesCalculator.add(iid);
+		cart.add(iid);
+		salesTaxesCalculator.setCart(cart);
 		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(10.00 + 10.00 * 0.05));
 	}
 	
@@ -222,7 +232,8 @@ public class SalesTaxesCalculatorTest {
 	public void should_return_price_including_taxes_for_imported_perfume() {
 		// Item perfume = new Other("bottle of perfume",47.50, true);
 		IItem perfume = new ConcreteItem("bottle of perfume",47.50);
-		salesTaxesCalculator.add(new ImportedItemDecorator(new TaxIncludedItemDecorator(perfume)));
+		cart.add(new ImportedItemDecorator(new TaxIncludedItemDecorator(perfume)));
+		salesTaxesCalculator.setCart(cart);
 		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(47.50 + 47.50 * 0.1 + 47.50 * 0.05)));
 	}
 	
@@ -242,8 +253,10 @@ public class SalesTaxesCalculatorTest {
 		IItem perfume = new ConcreteItem("bottle of perfume",47.50);
 		ImportedItemDecorator itiid = new ImportedItemDecorator(new TaxIncludedItemDecorator(perfume));
 
-		salesTaxesCalculator.add(iid);
-		salesTaxesCalculator.add(itiid);
+		cart.add(iid);
+		cart.add(itiid);
+		salesTaxesCalculator.setCart(cart);
+
 		double formula = (10.00 + 10.00 * 0.05) 
 				+ (47.50 + 47.50 * 0.1 + 47.50 * 0.05);
 		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(formula)));
@@ -260,8 +273,10 @@ public class SalesTaxesCalculatorTest {
 		IItem perfume = new ConcreteItem("bottle of perfume",47.50);
 		ImportedItemDecorator itiid = new ImportedItemDecorator(new TaxIncludedItemDecorator(perfume));
 		
-		salesTaxesCalculator.add(iid);
-		salesTaxesCalculator.add(itiid);
+		cart.add(iid);
+		cart.add(itiid);
+		salesTaxesCalculator.setCart(cart);
+
 		double taxes = (10.00 * 0.05) 
 				+ (47.50 * 0.1 + 47.50 * 0.05);
 		assertThat(round(salesTaxesCalculator.getTotalTaxes()), equalTo(round(taxes)));
@@ -300,10 +315,13 @@ public class SalesTaxesCalculatorTest {
 		IItem imported_chocolate = new ConcreteItem("box of imported chocolates", 11.25);
 		ImportedItemDecorator imported_chocolate_decorator = new ImportedItemDecorator(imported_chocolate);
 		
-		salesTaxesCalculator.add(imported_perfume_decorator);
-		salesTaxesCalculator.add(imported_chocolate_decorator);
-		salesTaxesCalculator.add(perfume_decorator);
-		salesTaxesCalculator.add(headache_pills);
+		cart.add(imported_perfume_decorator);
+		cart.add(imported_chocolate_decorator);
+		cart.add(perfume_decorator);
+		cart.add(headache_pills);
+		
+		salesTaxesCalculator.setCart(cart);
+
 
 		double formula = (27.99 + 27.99 * 0.1 + 27.99 * 0.05) + 
 				(18.99 + 18.99 * 0.1) + 9.75 + (11.25 + 11.25 * 0.05);
@@ -339,10 +357,13 @@ public class SalesTaxesCalculatorTest {
 		IItem imported_chocolate = new ConcreteItem("box of imported chocolates", 11.25);
 		ImportedItemDecorator imported_chocolate_decorator = new ImportedItemDecorator(imported_chocolate);
 		
-		salesTaxesCalculator.add(imported_perfume_decorator);
-		salesTaxesCalculator.add(imported_chocolate_decorator);
-		salesTaxesCalculator.add(perfume_decorator);
-		salesTaxesCalculator.add(headache_pills);
+		cart.add(imported_perfume_decorator);
+		cart.add(imported_chocolate_decorator);
+		cart.add(perfume_decorator);
+		cart.add(headache_pills);
+		
+		salesTaxesCalculator.setCart(cart);
+
 
 		double taxes = (price_imported_perfume * 0.1 + price_imported_perfume * 0.05) + 
 				(price_perfume * 0.1) + (price_chocolate * 0.05);
@@ -357,7 +378,8 @@ public class SalesTaxesCalculatorTest {
 		IItem headache_pills = new ConcreteItem("packet of headache pills", 9.75);
 		ImportedItemDecorator headache_pills_decorator = new ImportedItemDecorator(headache_pills);
 		
-		salesTaxesCalculator.add(headache_pills_decorator);
+		cart.add(headache_pills_decorator);
+		salesTaxesCalculator.setCart(cart);
 
 		double formula =  9.75 + 9.75 * 0.05;
 		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(formula)));
