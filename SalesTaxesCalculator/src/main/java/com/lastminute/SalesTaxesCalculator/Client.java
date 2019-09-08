@@ -10,6 +10,7 @@ public class Client {
 
 	private static final int N_NEW_LINE = 1;
 	private IParser parser;
+	private String input;
 	private List<String> inputList;
 	private static Client client;
 	
@@ -109,6 +110,16 @@ public class Client {
 	public String output() {
 		String temp = String.join("\n", this.inputList);
 		return parser.parse(temp);
+	}
+
+	public void setInput(String input) {
+		this.input = input;		
+	}
+
+	public String runInput() {
+		String parsed = this.parser.parse(this.input);
+		System.out.println(parsed);
+		return parsed;
 	}
 
 }
