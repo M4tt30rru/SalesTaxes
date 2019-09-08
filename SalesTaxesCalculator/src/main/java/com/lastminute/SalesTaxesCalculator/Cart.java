@@ -26,7 +26,12 @@ public class Cart implements ICart {
 	
 	@Override
 	public String toString() {
-		return null;
+		String s = "";
+		for(IItem i: iiList) {
+			s += i + "\n";
+		}
+		s = s.substring(0, s.length()-1); // remove the last space
+		return s;
 	}
 
 }
