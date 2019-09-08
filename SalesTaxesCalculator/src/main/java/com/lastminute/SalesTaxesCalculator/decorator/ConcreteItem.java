@@ -9,8 +9,8 @@ public class ConcreteItem implements IItem {
 	protected String name;
 	public boolean imported;
 	
-	public ConcreteItem(String category, double price) {
-		this.category = category;
+	public ConcreteItem(String name, double price) {
+		this.name = name;
 		this.price = price;
 	}
 
@@ -18,6 +18,7 @@ public class ConcreteItem implements IItem {
 		this.category = category;
 		this.price = price;
 		this.imported = false;
+		this.name = name;
 	}
 
 	public String getCategory() {
@@ -55,6 +56,16 @@ public class ConcreteItem implements IItem {
 
 	protected double round(double input) {
 		return (double) Math.round(input*100.00)/100.00;
+	}
+
+	@Override
+	public String getName() {
+		return this.name ;
+	}
+	
+	@Override	
+	public String toString() {
+		return "1 " + getName() + " at " + getPrice();
 	}
 
 }

@@ -11,5 +11,8 @@ public interface IItem {
 	Double getFullPrice();
 
 	Double getAllTaxes();
+
+	String getName();
+	
 }
 

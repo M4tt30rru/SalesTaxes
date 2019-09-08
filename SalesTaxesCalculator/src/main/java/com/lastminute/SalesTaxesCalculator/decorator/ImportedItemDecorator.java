@@ -25,4 +25,15 @@ public class ImportedItemDecorator extends DecoratorAbstraction {
 	public Double getAllTaxes() {
 		return getTax() * this.decoratedTarget.getPrice() + this.decoratedTarget.getAllTaxes();
 	}
+
+	@Override
+	public String getName() {
+		return this.decoratedTarget.getName();
+	}
+	
+	@Override	
+	public String toString() {
+		return "1 " + decoratedTarget.getName() + " at " + decoratedTarget.getPrice();
+	}
+	
 }
