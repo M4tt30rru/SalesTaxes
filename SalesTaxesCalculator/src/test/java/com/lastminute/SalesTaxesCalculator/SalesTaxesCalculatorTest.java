@@ -288,6 +288,26 @@ public class SalesTaxesCalculatorTest {
 		assertThat(round(salesTaxesCalculator.getTotalTaxes()), equalTo(round(taxes)));
 	}
 	
+	@Test
+	public void should_return_taxes_for_2nd_input_multiple_items() {
+		
+		int chocolate_quantity = 2;
+		IItem chocolate = new ConcreteItem(chocolate_quantity, "box of chocolate",10.00);
+		ImportedItemDecorator iid = new ImportedItemDecorator(chocolate);
+
+		int perfume_quantity = 3;
+		IItem perfume = new ConcreteItem(perfume_quantity, "bottle of perfume",47.50);
+		ImportedItemDecorator itiid = new ImportedItemDecorator(new TaxIncludedItemDecorator(perfume));
+		
+		cart.add(iid);
+		cart.add(itiid);
+		salesTaxesCalculator.setCart(cart);
+
+		double taxes = chocolate_quantity * (10.00 * 0.05) 
+				+ perfume_quantity * (47.50 * 0.1 + 47.50 * 0.05);
+		assertThat(round(salesTaxesCalculator.getTotalTaxes()), equalTo(round(taxes)));
+	}
+	
 //	Input 3:
 //		1 imported bottle of perfume at 27.99
 //		1 bottle of perfume at 18.99
@@ -328,6 +348,39 @@ public class SalesTaxesCalculatorTest {
 				(18.99 + 18.99 * 0.1) + 9.75 + (11.25 + 11.25 * 0.05);
 		
 		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(formula));
+	}
+	
+	@Test
+	public void should_return_price_including_taxes_for_3rd_input_multiple_quantities() throws Exception {
+		
+		int imported_perfume_quantity = 7;
+		IItem imported_perfume = new ConcreteItem(imported_perfume_quantity,"bottle of perfume",27.99);
+		ImportedItemDecorator imported_perfume_decorator = new ImportedItemDecorator(new TaxIncludedItemDecorator(imported_perfume));
+		
+		int perfume_quantity = 11;
+		IItem perfume = new ConcreteItem(perfume_quantity,"bottle of perfume",18.99);
+		TaxIncludedItemDecorator perfume_decorator = new TaxIncludedItemDecorator(perfume);
+		
+		int pills_quantity = 4;
+		IItem headache_pills = new ConcreteItem(pills_quantity,"packet of headache pills", 9.75);
+		
+		int imported_chocolate_quantity = 10;
+		IItem imported_chocolate = new ConcreteItem(imported_chocolate_quantity,"box of imported chocolates", 11.25);
+		ImportedItemDecorator imported_chocolate_decorator = new ImportedItemDecorator(imported_chocolate);
+		
+		cart.add(imported_perfume_decorator);
+		cart.add(imported_chocolate_decorator);
+		cart.add(perfume_decorator);
+		cart.add(headache_pills);
+		
+		salesTaxesCalculator.setCart(cart);
+
+
+		double formula = imported_perfume_quantity * (27.99 + 27.99 * 0.1 + 27.99 * 0.05) + 
+				perfume_quantity * (18.99 + 18.99 * 0.1) + pills_quantity * 9.75 
+				+ imported_chocolate_quantity * (11.25 + 11.25 * 0.05);
+		
+		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(formula)));
 	}
 	
 	@Test
