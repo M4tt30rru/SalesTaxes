@@ -20,20 +20,24 @@ public class ClientSystemTest {
 	}
 	
 	
+	@Test
+	public void should_return_complete_output_for_input_1() {
+		client.setInput("1 book at 12.49\n1 music CD at 14.99\n1 chocolate bar at 0.85");
+		String output = client.runInput();
+		assertThat(output,equalTo("1 book: 12.49\n1 music CD: 16.49\n1 chocolate bar: 0.85\nSales Taxes: 1.50\nTotal: 29.83"));
+	}
 	
-	//	Input 3:
-	//	1 imported bottle of perfume at 27.99
-	//	1 bottle of perfume at 18.99
-	//	1 packet of headache pills at 9.75
-	//	1 box of imported chocolates at 11.25
 	
-	//Output 3:
-	//	1 imported bottle of perfume: 32.19
-	//	1 bottle of perfume: 20.89
-	//	1 packet of headache pills: 9.75
-	//	1 imported box of chocolates: 11.85 <-- WATCH OUT! we are changing this in box of imported chocolates 
-	//	Sales Taxes: 6.70
-	//	Total: 74.68
+	@Test
+	public void should_return_complete_output_for_input_2() {
+		client.setInput("1 imported box of chocolates at 10.00\n"
+								   + "1 imported bottle of perfume at 47.50");
+		String output = client.runInput();
+		
+		assertThat(output,equalTo("1 imported box of chocolates: 10.50\n"
+				+ "1 imported bottle of perfume: 54.63\n"
+				+ "Sales Taxes: 7.63\nTotal: 65.13"));
+	}
 	
 	@Test
 	public void should_return_complete_output_for_input_3() {
