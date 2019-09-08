@@ -8,10 +8,13 @@ public class ConcreteItem implements IItem {
 	protected double price;
 	protected String name;
 	public boolean imported;
+
+	private Integer quantity;
 	
 	public ConcreteItem(String name, double price) {
 		this.name = name;
 		this.price = price;
+		this.quantity = new Integer(1);
 	}
 
 	public ConcreteItem(String name, String category, double price) {
@@ -19,6 +22,12 @@ public class ConcreteItem implements IItem {
 		this.price = price;
 		this.imported = false;
 		this.name = name;
+	}
+
+	public ConcreteItem(int quantity, String name, double price) {
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;	
 	}
 
 	public String getCategory() {
@@ -38,12 +47,12 @@ public class ConcreteItem implements IItem {
 	}
 	
 	public Double getFullPrice() {
-		return this.price;
+		return getPrice() + getTax() * getPrice();
 		// return round(this.price + getAllTaxes());
 	}
 
 	public Double getPrice() {
-		return this.price;
+		return this.quantity * this.price;
 	}
 
 	public Double getAllTaxes() {
@@ -65,7 +74,13 @@ public class ConcreteItem implements IItem {
 	
 	@Override	
 	public String toString() {
-		return "1 " + getName() + " at " + getPrice();
+		return "" + quantity + " " + getName() + " at " + getPrice();
 	}
 
+	@Override
+	public Integer getQuantity() {
+		return this.quantity;
+	}
+	
+	
 }

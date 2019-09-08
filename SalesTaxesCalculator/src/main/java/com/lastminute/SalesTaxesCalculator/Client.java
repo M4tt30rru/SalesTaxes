@@ -8,6 +8,7 @@ import com.lastminute.SalesTaxesCalculator.factory.ItemFactory;
 
 public class Client {
 
+	private static final int N_NEW_LINE = 1;
 	private IParser parser;
 	private List<String> inputList;
 	private static Client client;
@@ -66,9 +67,9 @@ public class Client {
 	private static void prettyPrint(String heading) {
 		String str = heading.toUpperCase();
 		
-		printMargin(3);
+		printMargin(N_NEW_LINE);
 		printHeading(str,"-");
-        printMargin(3);
+        printMargin(N_NEW_LINE);
 	}
 
 	private static void printMargin(int space) {
@@ -94,7 +95,7 @@ public class Client {
 	}
 	
 	private static void printOutput(String output) {
-		System.out.println("\n\nThanks, for your input. We are processing...");
+		// System.out.println("\n\nThanks, for your input. We are processing...");
 		prettyPrint("OUTPUT");
 		System.out.println(output);
 	}

@@ -108,9 +108,11 @@ public class ParserTest {
 	
 	@Test
 	public void should_return_complete_output_for_input_2() {
-		String parsed = parser.parse("1 imported box of chocolates at 10.00\n1 imported bottle of perfume at 47.50");
-		assertThat(parsed,equalTo("1 imported box of chocolates: 10.50\n1 imported bottle of perfume: 54.63\n"
-				+ "Sales Taxes: 7.63\nTotal: 65.13"));
+		String parsed = parser.parse("1 imported box of chocolates at 10.00\n"
+								   + "1 imported bottle of perfume at 47.50");
+		assertThat(parsed,equalTo("1 imported box of chocolates: 10.50\n"
+								+ "1 imported bottle of perfume: 54.63\n"
+								+ "Sales Taxes: 7.63\nTotal: 65.13"));
 	}
 	
 	//	Input 3:

@@ -64,6 +64,19 @@ public class SalesTaxesCalculatorTest {
 	}
 	
 	@Test
+	public void should_return_price_including_taxes_for_1_book() {
+		IItem book = new ConcreteItem(1,"book",12.49);
+		assertThat(salesTaxesCalculator.getPrice(book), equalTo(12.49));
+	}
+	
+	@Test
+	public void should_return_price_including_taxes_for_2_books() {
+		int quantity = 2;
+		IItem book = new ConcreteItem(quantity,"book",12.49);
+		assertThat(salesTaxesCalculator.getPrice(book), equalTo(quantity * 12.49));
+	}
+	
+	@Test
 	public void should_return_price_including_taxes_for_cd() {
 		IItem cd = new ConcreteItem("cd",14.99);
 		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
@@ -71,6 +84,18 @@ public class SalesTaxesCalculatorTest {
 		cart.add(tiid);
 		salesTaxesCalculator.setCart(cart);
 		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(formula)));
+	}
+	
+	@Test
+	public void should_return_price_including_taxes_for_3_cds() {
+		double price = 14.99;
+		Integer quantity = 3;
+		IItem cd = new ConcreteItem(quantity, "cd", price);
+		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
+		double formula = quantity * (price + price * 0.1);
+		cart.add(tiid);
+		salesTaxesCalculator.setCart(cart);
+		assertThat(salesTaxesCalculator.getTotalPrice(), equalTo(formula));
 	}
 	
 	@Test
@@ -107,7 +132,20 @@ public class SalesTaxesCalculatorTest {
 		salesTaxesCalculator.setCart(cart);
 		double formula = 14.99 + 14.99 * 0.1 + 0.85;
 		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(formula)));
-
+	}
+	
+	@Test
+	public void should_return_price_including_taxes_for_two_different_items_different_quantity() {
+		int quantity_cd = 3;
+		IItem cd = new ConcreteItem(quantity_cd,"cd",14.99);
+		TaxIncludedItemDecorator tiid = new TaxIncludedItemDecorator(cd);
+		int quantity_chocolate = 2;
+		IItem chocolate_bar = new ConcreteItem(quantity_chocolate,"chocolate bar",0.85);
+		cart.add(chocolate_bar);
+		cart.add(tiid);
+		salesTaxesCalculator.setCart(cart);
+		double formula = quantity_cd * (14.99 + 14.99 * 0.1) + quantity_chocolate * 0.85;
+		assertThat(round(salesTaxesCalculator.getTotalPrice()), equalTo(round(formula)));
 	}
 	
 //	Output 1:

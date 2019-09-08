@@ -4,6 +4,8 @@ package com.lastminute.SalesTaxesCalculator.decorator;
 //need to implement.
 public interface IItem {
 
+	Integer getQuantity();
+
 	Double getTax();
 
 	Double getPrice();

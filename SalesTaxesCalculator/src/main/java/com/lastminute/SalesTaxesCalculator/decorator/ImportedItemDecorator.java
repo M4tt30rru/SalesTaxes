@@ -33,7 +33,12 @@ public class ImportedItemDecorator extends DecoratorAbstraction {
 	
 	@Override	
 	public String toString() {
-		return "1 " + decoratedTarget.getName() + " at " + decoratedTarget.getPrice();
+		return "" + decoratedTarget.getQuantity() + " " + decoratedTarget.getName() + " at " + decoratedTarget.getPrice();
+	}
+
+	@Override
+	public Integer getQuantity() {
+		return this.decoratedTarget.getQuantity();
 	}
 	
 }

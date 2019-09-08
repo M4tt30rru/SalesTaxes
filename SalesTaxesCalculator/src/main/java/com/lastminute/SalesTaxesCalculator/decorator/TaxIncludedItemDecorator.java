@@ -31,9 +31,14 @@ public class TaxIncludedItemDecorator extends DecoratorAbstraction {
 		return this.decoratedTarget.getName();
 	}
 	
+	@Override
+	public Integer getQuantity() {
+		return this.decoratedTarget.getQuantity();
+	}
+	
 	@Override	
 	public String toString() {
-		return "1 " + decoratedTarget.getName() + " at " + decoratedTarget.getPrice();
+		return "" + decoratedTarget.getQuantity() + " " + decoratedTarget.getName() + " at " + decoratedTarget.getPrice();
 	}
 	
 }
