@@ -38,17 +38,12 @@ public class ConcreteItem implements IItem {
 		return TAX * 100;
 	}
 	
-	private double addTaxes() {
-		return TAX == 0.0 ? TAX : this.price * TAX;
-	}
-
 	protected double addCustomsIfImported() {
 		return imported ? round(this.price * 0.05) : 0;
 	}
 	
 	public Double getFullPrice() {
 		return getPrice() + getTax() * getPrice();
-		// return round(this.price + getAllTaxes());
 	}
 
 	public Double getPrice() {
@@ -56,7 +51,7 @@ public class ConcreteItem implements IItem {
 	}
 
 	public Double getAllTaxes() {
-		return 0.0; // round(addTaxes() + addCustomsIfImported());
+		return 0.0; 
 	}
 
 	public void setPrice(double price) {
