@@ -1,4 +1,4 @@
-package com.lastminute.SalesTaxesCalculator;
+package com.lastminute.SalesTaxesCalculator.factory;
 
 import com.lastminute.SalesTaxesCalculator.decorator.IItem;
 import com.lastminute.SalesTaxesCalculator.item.Item;

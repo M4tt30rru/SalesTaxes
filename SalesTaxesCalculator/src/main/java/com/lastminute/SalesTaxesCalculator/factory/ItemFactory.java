@@ -1,4 +1,4 @@
-package com.lastminute.SalesTaxesCalculator;
+package com.lastminute.SalesTaxesCalculator.factory;
 
 import java.util.HashMap;
 import java.util.HashSet;
