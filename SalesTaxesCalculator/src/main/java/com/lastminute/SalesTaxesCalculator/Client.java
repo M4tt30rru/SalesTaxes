@@ -88,8 +88,6 @@ public class Client {
 			output += s + "\n";
 		}
 		output = output.substring(0, output.length()-1); 
-		// System.out.println(output);
-		// client.parser.parse(string);
 		printOutput(client.parser.parse(output));
 	}
 	
