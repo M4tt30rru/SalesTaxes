@@ -56,7 +56,7 @@ public class Client {
       // new App(server, portNumber).execute();
     }	
     
-    private static List<String> cart = new ArrayList<String>();
+    private static List<String> inputCache = new ArrayList<String>();
 	private static Scanner scanner;
     
     public static void run(String[] args)
@@ -95,7 +95,6 @@ public class Client {
     }
 
 	private static void input() {
-		
 
 	 scanner = new Scanner(System.in);
      String answer, start;
@@ -118,7 +117,7 @@ public class Client {
 	 
      System.out.print("Please insert the first item: ");
 	  	do {
-	  		cart.add(scanner.nextLine());
+	  		inputCache.add(scanner.nextLine());
 	  		System.out.print("Press Enter to send the entry");
 	        scanner.nextLine();
 	  		System.out.print("Add another product?[Yn]: ");
@@ -128,6 +127,17 @@ public class Client {
 //	  			cart.add(scanner.nextLine());
 	  		}
 	  	} while(answer.toLowerCase().equals("y"));
+	  	
+	  	printInput();
+	}
+
+	private static void printInput() {
+		prettyPrint("INPUT");
+		String str = "";
+		for(String s: inputCache) {
+			str += s + "\n";
+		}
+		System.out.println(str);
 	}
 
 	private static void prettyPrint(String heading) {
@@ -153,7 +163,7 @@ public class Client {
 
 	private static void process() {
 		String output = "";
-		for(String s: cart) {
+		for(String s: inputCache) {
 			output += s + "\n";
 		}
 		output = output.substring(0, output.length()-1); 
@@ -165,7 +175,7 @@ public class Client {
 	private static void printOutput() {
 		System.out.println("\n\nThanks, for your input. We are processing...");
 		prettyPrint("OUTPUT");
-		for(String s: cart) {
+		for(String s: inputCache) {
 			System.out.println(s);
 		}
   	  	//System.exit(0);
