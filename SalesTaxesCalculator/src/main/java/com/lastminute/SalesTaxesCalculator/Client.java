@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.lastminute.SalesTaxesCalculator.factory.ItemFactory;
+
 public class Client {
 
 	private IParser parser;
