@@ -10,8 +10,14 @@ public class SalesTaxesCalculator implements ISalesTaxesCalculator {
 
 	@Deprecated
 	private List<Item> list = new ArrayList<Item>();
-	private List<IItem> iiList2 = new ArrayList<IItem>();
-	private ICart iiList = new Cart();
+	private ICart cart;
+	
+	public SalesTaxesCalculator() {
+		this.cart = new Cart();
+	}
+	public SalesTaxesCalculator(ICart cart2) {
+		this.cart = new Cart();
+	}
 
 	@Deprecated
 	public Double getTaxFromItem(Item item) {
@@ -33,7 +39,7 @@ public class SalesTaxesCalculator implements ISalesTaxesCalculator {
 
 	public Double getTotalPrice() {
 		Double price = 0.0;
-		for(IItem i: iiList.getItemsList()) {
+		for(IItem i: cart.getItemsList()) {
 			price += i.getFullPrice(); // i.getFullPrice();
 		}
 		return price;
@@ -41,7 +47,7 @@ public class SalesTaxesCalculator implements ISalesTaxesCalculator {
 
 	public double getTotalTaxes() {
 		Double taxes = 0.0;
-		for(IItem i: iiList.getItemsList()) {
+		for(IItem i: cart.getItemsList()) {
 			// double tax = i.getTax()/100;
 			// double price = i.getPrice();
 			taxes += i.getAllTaxes(); // (price * tax);
@@ -59,7 +65,7 @@ public class SalesTaxesCalculator implements ISalesTaxesCalculator {
 	}
 
 	public void add(IItem item) {
-		iiList.add(item);
+		cart.add(item);
 	}
 
 }

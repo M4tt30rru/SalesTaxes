@@ -28,10 +28,12 @@ public class SalesTaxesCalculatorTest {
 //		1 chocolate bar at 0.85
 	
 	private SalesTaxesCalculator salesTaxesCalculator;
+	private ICart cart;
 
 	@Before
 	public void setup() {
-		salesTaxesCalculator = new SalesTaxesCalculator();
+		cart = new Cart();
+		salesTaxesCalculator = new SalesTaxesCalculator(cart);
 	}
 	
 	@Ignore
