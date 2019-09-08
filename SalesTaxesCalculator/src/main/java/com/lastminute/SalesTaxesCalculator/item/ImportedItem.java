@@ -1,5 +1,6 @@
 package com.lastminute.SalesTaxesCalculator.item;
 
+@Deprecated
 public class ImportedItem extends Item {
 
 	public ImportedItem(String category, double price) {

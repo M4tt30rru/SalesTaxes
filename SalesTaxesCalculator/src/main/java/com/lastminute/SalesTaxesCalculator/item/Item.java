@@ -1,5 +1,6 @@
 package com.lastminute.SalesTaxesCalculator.item;
 
+@Deprecated
 public abstract class Item {
 	
 	protected String category;

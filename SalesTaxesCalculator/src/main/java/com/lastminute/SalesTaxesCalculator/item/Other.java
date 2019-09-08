@@ -2,12 +2,12 @@ package com.lastminute.SalesTaxesCalculator.item;
 
 /**
  * Class that contains items which are not either books, medical products or food
- * @TODO add quantity
+ * @TODO  add quantity
  * @TODO invert the use of constructors: let 2 parameters constructor call the three one with default imported = false
  * @author matteo
  *
  */
-
+@Deprecated
 public class Other extends Item {
 	
 	private static double TAX = 0.1;

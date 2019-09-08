@@ -1,5 +1,6 @@
 package com.lastminute.SalesTaxesCalculator.item;
 
+@Deprecated
 public class Book extends Item {
 	
 	private static double TAX = 0;

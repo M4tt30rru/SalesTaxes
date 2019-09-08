@@ -1,5 +1,6 @@
 package com.lastminute.SalesTaxesCalculator.item;
 
+@Deprecated
 public class Medical extends Item {
 	
 	private static double TAX = 0;
