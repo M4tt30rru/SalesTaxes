@@ -40,20 +40,6 @@ public class SalesTaxesCalculatorTest {
 		assertThat(salesTaxesCalculator.getTaxFromItem(book), equalTo(0.0));
 	}
 	
-	@Ignore
-	@Test
-	public void should_return_10_taxes_for_cd() {
-		Item cd = new Other("cd",14.99);
-		assertThat(salesTaxesCalculator.getTaxFromItem(cd), equalTo(10.0));
-	}
-	
-	@Ignore
-	@Test
-	public void should_return_zero_taxes_for_chocholate_bar() {
-		Item chocolate_bar = new Food("chocolate bar",0.85);
-		assertThat(salesTaxesCalculator.getTaxFromItem(chocolate_bar), equalTo(0.0));
-	}
-	
 	@Test
 	public void should_return_price_including_taxes_for_books() {
 		IItem book = new ConcreteItem("book",12.49);

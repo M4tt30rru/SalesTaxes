@@ -3,8 +3,6 @@ package com.lastminute.SalesTaxesCalculator;
 import com.lastminute.SalesTaxesCalculator.decorator.IItem;
 import com.lastminute.SalesTaxesCalculator.factory.AbstractItemFactory;
 import com.lastminute.SalesTaxesCalculator.factory.ItemFactory;
-import com.lastminute.SalesTaxesCalculator.item.Item;
-import com.lastminute.SalesTaxesCalculator.item.Other;
 
 public class Parser implements IParser {
 	
@@ -40,8 +38,6 @@ public class Parser implements IParser {
 		int quantity = Integer.parseInt(temp[0]);
 		double price = Double.parseDouble(temp[temp.length - 1]);
 
-		// input 1 book at 12.49
-		// output 1 book: 12.49\\nSales Taxes: 0\\nSales Taxes: 0
 		String itemName;
 		if(input.contains("imported")) {
 			itemName = getItemNameWithImported(temp);
@@ -49,15 +45,10 @@ public class Parser implements IParser {
 			itemName = getItemNameRemoveImported(temp);
 		}
 		
-		// Item item = itemFactory.createItem2(itemName, price);
-		// System.out.println("itemName: " + itemName);
 		IItem item = itemFactory.createItem(itemName, price);
-
-		// item.setPrice(price);
-		
 		salesTaxesCalculator.add(item);
-		
 		String itemrow = quantity + " " + itemName + ": " + printout2decimal(round(item.getFullPrice()));
+		
 		return itemrow;
 	}
 
@@ -95,21 +86,10 @@ public class Parser implements IParser {
 		return true;
 	}
 
-	private Item lookUp(String itemName) {
-			switch(itemName) {
-				case "music CD":
-					return new Other(itemName,0.0,false);
-				default:
-					break;
-			}
-		return null;
-	}
-	
 	public String getItemNameWithImported(String[] temp) {
 		// start from the second element
 		String s = "";
 		for(int i = 1; i < temp.length-2; i++) {
-			//if(!temp[i].equals("imported"))
 				s += temp[i] + " ";
 		}
 		s = s.substring(0, s.length()-1); // remove the last space
@@ -120,11 +100,9 @@ public class Parser implements IParser {
 		// start from the second element
 		String s = "";
 		for(int i = 1; i < temp.length-2; i++) {
-			// System.out.println(temp[i]);
 			if(!temp[i].equals("imported")) 
 				s += temp[i] + " ";
 		}
-		// s = s.substring(0, s.length()-1); // remove the last space
 		s = s.substring(0, s.length()-1); // remove the last space
 		return s;
 	}
@@ -135,7 +113,6 @@ public class Parser implements IParser {
 	}
 	
 	protected Double round(Double input) {
-		// return (double) Math.round(input*100.00)/100.00;
 		return (double) Math.round(input*100.00)/100.00;
 	}
 

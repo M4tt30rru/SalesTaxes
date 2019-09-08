@@ -1,15 +1,13 @@
 package com.lastminute.SalesTaxesCalculator;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.lastminute.SalesTaxesCalculator.decorator.IItem;
 import com.lastminute.SalesTaxesCalculator.item.Item;
 
 public class SalesTaxesCalculator implements ISalesTaxesCalculator {
 
-	@Deprecated
-	private List<Item> list = new ArrayList<Item>();
+//	@Deprecated
+//	private List<Item> list = new ArrayList<Item>();
+	
 	private ICart cart;
 	
 	public SalesTaxesCalculator() {
@@ -19,11 +17,6 @@ public class SalesTaxesCalculator implements ISalesTaxesCalculator {
 		this.cart = new Cart();
 	}
 
-	@Deprecated
-	public Double getTaxFromItem(Item item) {
-		return item.getTax();
-	}
-	
 	public Double getTaxFromItem(IItem item) {
 		return item.getTax();
 	}
@@ -32,10 +25,10 @@ public class SalesTaxesCalculator implements ISalesTaxesCalculator {
 		return item.getFullPrice();
 	}
 	
-	@Deprecated
-	public void add(Item item) {
-		list.add(item);
-	}
+//	@Deprecated
+//	public void add(Item item) {
+//		list.add(item);
+//	}
 
 	public Double getTotalPrice() {
 		Double price = 0.0;
@@ -48,8 +41,6 @@ public class SalesTaxesCalculator implements ISalesTaxesCalculator {
 	public double getTotalTaxes() {
 		Double taxes = 0.0;
 		for(IItem i: cart.getItemsList()) {
-			// double tax = i.getTax()/100;
-			// double price = i.getPrice();
 			taxes += i.getAllTaxes(); // (price * tax);
 		}
 		return taxes;
