@@ -11,9 +11,6 @@ import com.lastminute.SalesTaxesCalculator.decorator.ConcreteItem;
 import com.lastminute.SalesTaxesCalculator.decorator.IItem;
 import com.lastminute.SalesTaxesCalculator.decorator.ImportedItemDecorator;
 import com.lastminute.SalesTaxesCalculator.decorator.TaxIncludedItemDecorator;
-import com.lastminute.SalesTaxesCalculator.item.Food;
-import com.lastminute.SalesTaxesCalculator.item.Item;
-import com.lastminute.SalesTaxesCalculator.item.Other;
 
 public class SalesTaxesCalculatorTest {
 	

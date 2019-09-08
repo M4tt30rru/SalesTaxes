@@ -3,6 +3,8 @@ package com.lastminute.SalesTaxesCalculator.factory;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import com.lastminute.SalesTaxesCalculator.ILookUpTable;
+import com.lastminute.SalesTaxesCalculator.LookUpTable;
 import com.lastminute.SalesTaxesCalculator.decorator.ConcreteItem;
 import com.lastminute.SalesTaxesCalculator.decorator.IItem;
 import com.lastminute.SalesTaxesCalculator.decorator.ImportedItemDecorator;
@@ -15,43 +17,39 @@ import com.lastminute.SalesTaxesCalculator.item.Other;
 
 public class ItemFactory extends AbstractItemFactory {
 	
-	HashMap<String, HashSet<String>> lookUpTable = new HashMap<String,HashSet<String>>();
+	// HashMap<String, HashSet<String>> lookUpTable = new HashMap<String,HashSet<String>>();
+	private ILookUpTable lookUpTable;
 	
 	public ItemFactory() {
-		initializeLookUpTable();
+		this.lookUpTable = new LookUpTable();
+		// lookUpTable.initializeLookUpTable();
 	}
 
 
-	private void initializeLookUpTable() {
-		
-		HashSet<String> medicalHS = new HashSet<String>();
-		medicalHS.add("packet of headache pills");
-		lookUpTable.put("Medical", medicalHS);
-		
-		HashSet<String> foodHS = new HashSet<String>();
-		foodHS.add("chocolate bar");
-		foodHS.add("box of chocolates");
-		lookUpTable.put("Food", medicalHS);
-		
-		HashSet<String> bookHS = new HashSet<String>();
-		bookHS.add("book");
-		lookUpTable.put("Book", medicalHS);
-		
-		HashSet<String> otherHS = new HashSet<String>();
-		otherHS.add("bottle of perfume");
-		lookUpTable.put("Other", medicalHS);
-	}
-
-
-//	@Override
-//	public Item createItem(int i, String string, double d) {
-//		return null;
+//	private void initializeLookUpTable() {
+//		
+//		HashSet<String> medicalHS = new HashSet<String>();
+//		medicalHS.add("packet of headache pills");
+//		lookUpTable.put("Medical", medicalHS);
+//		
+//		HashSet<String> foodHS = new HashSet<String>();
+//		foodHS.add("chocolate bar");
+//		foodHS.add("box of chocolates");
+//		lookUpTable.put("Food", medicalHS);
+//		
+//		HashSet<String> bookHS = new HashSet<String>();
+//		bookHS.add("book");
+//		lookUpTable.put("Book", medicalHS);
+//		
+//		HashSet<String> otherHS = new HashSet<String>();
+//		otherHS.add("bottle of perfume");
+//		lookUpTable.put("Other", medicalHS);
 //	}
-	
+
+
 	@Override
 	public IItem createItem(String itemName, double price) {
-//		if(false) // Math.random() > 3)
-//			return lookup(itemName.toLowerCase());
+
 		String lowerCase = itemName.toLowerCase();
 		switch(lowerCase) {
 			case "music cd": 
@@ -85,8 +83,7 @@ public class ItemFactory extends AbstractItemFactory {
 
 	@Deprecated
 	public Item createItem2(String itemName, double price) {
-//		if(false) // Math.random() > 3)
-//			return lookup(itemName.toLowerCase());
+
 		String lowerCase = itemName.toLowerCase();
 		switch(lowerCase) {
 			case "music cd": 
@@ -118,17 +115,9 @@ public class ItemFactory extends AbstractItemFactory {
 		return null;
 	}
 	
+	@Deprecated
 	private Item lookup(String itemName, Double price, boolean isImported) {
 
-//		String className = lookUpTable.get(item);
-//		Item i = null;
-//		try {
-//			 i = (Item) Class.forName(className).newInstance();
-//		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		return i;
-		
 		if(lookUpTable.get("Medical").contains(itemName))
 				return new Medical(itemName,price,false);
 		
